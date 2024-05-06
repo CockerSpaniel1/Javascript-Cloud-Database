@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Info</title>
+    <style>
+        body {margin:0px;}
+        h1 {
+            font-size:  3rem;
+            color:gold;
+            background-color: forestgreen;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            width:100%;
+            height:50vh;
+            margin:0px;
+            cursor:pointer;
+            
+        }
+
+        p{
+            text-indent:1.8rem;
+            border-bottom:1px solid gray;
+            padding-bottom:15px;
+            line-height: 1.75rem;
+        }
+
+        h3{
+            background-color: gold;
+            width:40%;
+            margin-left:1.8rem;
+            border-radius: 25px;
+            text-align:center;
+            padding:0.5rem
+
+        }
+        .nowshowing{
+            background-color: green;
+            color:gold;
+            text-decoration:underline;
+        }
+
+        #m1,#m9{
+            border-left:5px green double;
+            border-right:5px green double;
+        }
+
+        ul {list-style-type: none;}
+        ul li a{
+            box-sizing: border-box;
+            text-decoration:none;
+            color:gold;
+            background-color:green;
+            width:100px;
+            height:100px;
+            border-radius:50%; 
+
+            display:inline-flex;
+            float:left;
+            align-items: center;
+            margin:8px;
+            text-align: center;
+            font-size:0.5em;
+            padding:0.125rem;
+
+        }
+
+        ul li a:link{
+            color:yellow;
+        }
+
+        ul li a:visited{
+            color:red;
+        }
+
+        ul li a:focus{
+            border:gold 3px solid;
+        }
+        
+        ul li a:hover{
+            background-color:gold;
+            color:green;
+            border:green 3px solid;
+        }
+        ul li a:active{
+            background-color: orange;
+            color:aquamarine;
+        }
+        img{
+            width:15vw;
+            border:1px gray solid;
+            box-shadow:3px 3px 3px gray;
+            margin:8px;
+            float:left;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <h1 id="top" onclick="window.alert('金牌特務：金士曼起源 現正熱映中...')"
+                onmouseover="this.innerHTML = '歡迎來到電影情報站'"  ;
+                onmouseout="this.innerHTML = 'Welcome to Movie Info Website'">Welcome to Movie Info Website</h1>
+    <div style="margin:2rem;">
+        <p1>2020年有哪些好看的電影？美國 IMDb影評網站，根據站內用戶關注每部電影的頁面瀏覽量統計，列出2020最受期待的10部電影名單。這份名單以「超級英雄電影」及「娛樂動作大片」類型，受到影迷注目，而《猛禽小隊：小丑女大解放》擊敗《黑寡婦》成了最期待電影排行榜的首位。如果想追上熱門的電影，這份名單，可視為2020年電影推薦的好選擇。</p>
+
+        <div>
+<ul>
+    <li><a href="#m1">《玩命關頭9》（Fast & Furious 9）</a></li>
+    <li><a href="#m2">《金牌特務：金士曼起源》（The King’s Man）</a></li>
+    <li><a href="#m3">《沙丘魔堡》（Dune）</a></li>
+    <li><a href="#m4">《神力女超人 1984》（Wonder Woman 1984）</a></li>
+    <li><a href="#m5">《花木蘭》（Mulan）</a></li>
+    <li><a href="#m6">《黑寡婦》（Black Widow）</a></li>
+    <li><a href="#m7">《007：生死交戰》（No Time to Die）</a></li>
+    <li><a href="#m8">《捍衛戰士：獨行俠》（Top Gun: Marverick）</a></li>
+    <li><a href="#m9">《音速小子》（Sonic the Hedgehog）</a></li>
+    <li><a href="#m10">《猛禽小隊：小丑女大解放》（Birds of Prey）</a></li>
+</ul>
+</div>
+<hr style="clear:both";>
+
+<h3 id="m1">《玩命關頭9》（Fast & Furious 9）</h3>
+<p><img src="images/movies/1.jpg">從《玩命關頭7》到《玩命關頭8》全球票房都大賣超過10億美元，巨石強森與傑森史塔森合作衍生的外傳《玩命關頭：特別行動》，全球票房也有7.58億美元，這系列電影是環球影業吸金的招牌，《玩命關頭9》自然受到矚目，這也是「唐老大」馮迪索在與巨石強森不合八卦紛擾後，要證明自己扛下票房的壓力。<a href="#top">top</a></p>
+
+<h3 id="m2" class="nowshowing">《金牌特務：金士曼起源》（The King’s Man）</h3>
+<p><img src="images/movies/2.jpg">《金牌特務：金士曼起源》是「金牌特務」系列電影的第三部作品，2015年《金牌特務》的前傳，故事背景時間設定在第一次世界大戰。過往導演馬修范恩一向不太喜歡拍攝續集電影，但對《金牌特務》這系列的電影打造，相當感興趣，可參考：關於《金牌特務：機密對決》，你會想了解的5件事！<a href="#top">top</a></p>
+
+<h3 id="m3">《沙丘魔堡》（Dune）</h3>
+<p><img src="images/movies/3.jpg">《沙丘魔堡》是重啟的史詩科幻電影，由《銀翼殺手2049》導演丹尼維勒納夫執導，劇情改編自1965年英文同名科幻小說《沙丘》，1984年導演大衛林區即曾拍攝電影。新版的《沙丘魔堡》演員有提摩西夏勒梅、蕾貝卡弗格森、奧斯卡伊薩克、喬許布洛林、史戴倫史柯斯嘉、辛蒂亞及巴帝斯塔等，上映時間定於2020年12月18日。<a href="#top">top</a></p>
+
+<h3 id="m4" class="nowshowing">《神力女超人 1984》（Wonder Woman 1984）</h3>
+<p><img src="images/movies/4jpg">《2017年《神力女超人》，無疑讓「DC擴展宇宙」注入一股強心針，蓋兒加朵飾演黛安娜普林斯的「神力女超人」就是目前DC的超級英雄重心，《神力女超人1984》是系列電影的第二部，克里斯潘恩飾演的史蒂夫崔佛也回歸，從預告片上檔，就吸引大批影迷的目光。<a href="#top">top</a></p>
+
+<h3 id="m5">《花木蘭》（Mulan）</h3>
+<p><img src="images/movies/5.jpg">從2020最值得期待的電影榜單來看，感覺迪士尼在2020年全球票房，可能不會如2019年全年度輕鬆突破百億美元票房那樣亮眼，而真人版電影《花木蘭》在中國電影市場，必須得創出好票房，否則北美市場要開出高票房，恐有難度。電影定於2020年3月27日上映。<a href="#top">top</a></p>
+
+<h3 id="m6"> 《黑寡婦》（Black Widow）</h3>
+<p><img src="images/movies/6.jpg">《黑寡婦》是漫威電影宇宙第四階段的首部電影，不過不知是否先前受到故事相似於《紅雀》題材的流言影響（事實上，從預告上來看並非如此），使得影迷熱度未如2019年《驚奇隊長》般，受到漫威迷期待。電影定於2020年5月1日上映。<a href="#top">top</a></p>
+
+<h3 id="m7">《007：生死交戰》（No Time to Die）</h3>
+<p><img src="images/movies/7.jpg">《007：生死交戰》是「詹姆士龐德系列電影」的第二十五部電影，2015年電影《007：惡魔四伏》的續集，當時原本丹尼爾克雷格無意再接演，最後在各方遊說及影迷期待下，再次回歸，但確定他是最後一次擔任龐德的演出了。<a href="#top">top</a></p>
+
+<h3 id="m8" class="nowshowing">《捍衛戰士：獨行俠》（Top Gun: Marverick）</h3>
+<p><img src="images/movies/8.jpg">《捍衛戰士：獨行俠》是1986年電影《捍衛戰士》的續集，「阿湯哥」湯姆克魯斯在34年後，回到自己年輕時爆紅的大銀幕角色。電影的期待熱度，自然受到影迷關注，而當年「冰人」一角的方基墨也會回歸。其他演員還有麥爾斯泰勒、珍妮佛康納莉、喬漢姆及艾德哈里斯等人，《捍衛戰士：獨行俠》定於2020年6月26日上映。<a href="#top">top</a></p>
+
+<h3 id="m9">《音速小子》（Sonic the Hedgehog）</h3>
+<p><img src="images/movies/9.jpg">《音速小子》電影原本定在2019年11月15日上映，因5月時，首部預告片中的外型設計，引起玩家及影迷反感，不得不重新後製、特效處理，11月再次推出的預告片，獲得正面的回應，派拉蒙影業也敲定於2020年2月14日在美國上映。<a href="#top">top</a></p>
+
+<h3 id="m10">猛禽小隊：小丑女大解放》（Birds of Prey）</h3>
+<p><img src="images/movies/10.jpg">2020最值得期待的電影首位，是瑪格羅比在2016年《自殺突擊隊》飾演「小丑女」所衍生出的獨立電影《猛禽小隊：小丑女大解放》。除了集結瑪麗伊莉莎白文斯蒂德、琴妮齊莫雷特貝爾及蘿西培瑞茲等女星，並由華裔女導演閻羽茜執導，滿滿的女力，同時也是「DC擴展宇宙」中第一部院線上映的限制級電影。<a href="#top">top</a></p>
+</div>
+</body>
+</html>

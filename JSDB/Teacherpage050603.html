@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RWD </title>
+
+    <style>
+
+        /* Universal Selector 萬用選擇器*/
+        *{box-sizing: border-box;}
+
+
+        /* Attribute selecotr 屬性選擇器*/
+        [class *='col-' ]{
+            float: left;
+            padding: 0.5em;
+            width: 100%;
+        }
+
+       
+        /* 顯示裝置 576 px 以上*/
+        @media only screen and (min-width:576px){
+            .col-s-1{width: 8.33%;}
+            .col-s-2{width: 16.67%;}
+            .col-s-3{width: 25.00%;}
+            .col-s-4{width: 33.33%;}
+            .col-s-5{width: 41.67%;}
+            .col-s-6{width: 50.00%;}
+            .col-s-7{width: 58.33%;}
+            .col-s-8{width: 66.67%;}
+            .col-s-9{width: 75.00%;}
+            .col-s-10{width: 83.33%;}
+            .col-s-11{width: 91.67%;}
+            .col-s-12{width: 100.0%;}
+        }
+
+        /* 顯示裝置 768 px 以上*/
+        @media only screen and (min-width:768px){
+            .col-m-1{width: 8.33%;}
+            .col-m-2{width: 16.67%;}
+            .col-m-3{width: 25.00%;}
+            .col-m-4{width: 33.33%;}
+            .col-m-5{width: 41.67%;}
+            .col-m-6{width: 50.00%;}
+            .col-m-7{width: 58.33%;}
+            .col-m-8{width: 66.67%;}
+            .col-m-9{width: 75.00%;}
+            .col-m-10{width: 83.33%;}
+            .col-m-11{width: 91.67%;}
+            .col-m-12{width: 100.0%;}
+        }
+
+        
+        /* 顯示裝置 992 px 以上*/
+        @media only screen and (min-width:992px){
+            .col-g-1{width: 8.33%;}
+            .col-g-2{width: 16.67%;}
+            .col-g-3{width: 25.00%;}
+            .col-g-4{width: 33.33%;}
+            .col-g-5{width: 41.67%;}
+            .col-g-6{width: 50.00%;}
+            .col-g-7{width: 58.33%;}
+            .col-g-8{width: 66.67%;}
+            .col-g-9{width: 75.00%;}
+            .col-g-10{width: 83.33%;}
+            .col-g-11{width: 91.67%;}
+            .col-g-12{width: 100.0%;}
+        }
+
+        
+        /* 顯示裝置 1200 px 以上*/
+        @media only screen and (min-width:1200px){
+            .col-1{width: 8.33%;}
+            .col-2{width: 16.67%;}
+            .col-3{width: 25.00%;}
+            .col-4{width: 33.33%;}
+            .col-5{width: 41.67%;}
+            .col-6{width: 50.00%;}
+            .col-7{width: 58.33%;}
+            .col-8{width: 66.67%;}
+            .col-9{width: 75.00%;}
+            .col-10{width: 83.33%;}
+            .col-11{width: 91.67%;}
+            .col-12{width: 100.0%;}
+        }
+
+    </style>
+</head>
+<body>
+
+    <div>
+        <div class="col-4 col-g-6 col-m-12 col-s-12" style="background-color: red;">1</div>
+        <div class="col-4 col-g-6 col-m-12 col-s-12" style="background-color: orange;">2</div>
+        <div class="col-4 col-g-12 col-m-12 col-s-12" style="background-color: yellow;">3</div>
+    </div>
+
+    <div>
+        
+
+        <div class="col-3 col-g-6 col-m-5 col-s-12" style="background-color: green;">4</div>
+
+        <div class="col-3 col-g-6 col-m-7 col-s-12" style="background-color: blue;">5</div>
+
+        <div class="col-3 col-g-6 col-m-5 col-s-12" style="background-color: indigo;">6</div>
+        <div class="col-3 col-g-6 col-m-7 col-s-12" style="background-color: purple;">7</div>
+
+    </div>
+    
+</body>
+</html>
