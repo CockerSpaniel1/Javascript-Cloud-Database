@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var fare = 300;
+        var title = "金牌特務: 金士曼起源";
+        var company = "迪士尼"
+
+        var length = 131;
+        var director = "馬修 范恩";
+
+        var playDate = new Date("2021/11/18 18:00");
+        var adult = false;
+
+        document.write("電影名稱: " + title + "<br>" 
+                      + "電影票價: " + fare + "<br>" 
+                      + "發行公司: " + company + "<br>"
+                      + "電影片長: " +  length + "<br>"
+                      + "導演: " + director + "<br>"
+                      + "發行日期: " + playDate.toLocaleString() + "<br>"
+                      + "是否為限制級: " + adult + "<br>"
+        );
+
+        document.write("<hr>");
+
+        var video = {
+        fare : 300,
+        title : "金牌特務: 金士曼起源",
+        company : "迪士尼",
+        length : 131,
+        director : "馬修 范恩",
+        playDate : new Date("2021/11/18 18:00"),
+        adult : false,
+        cass : "雷夫·范恩斯",
+        }
+
+        document.write("電影名稱: " + video.title + "<br>" 
+                      + "電影票價: " + video.fare + "<br>" 
+                      + "發行公司: " + video.company + "<br>"
+                      + "電影片長: " +  video.length + "<br>"
+                      + "導演: " + video.director + "<br>"
+                      + "發行日期: " + video.playDate.toLocaleString() + "<br>"
+                      + "是否為限制級: " + video.adult + "<br>"
+                      + "電影卡司: "  + video.cass + "<br>"
+        );
+
+        document.write("<hr>");
+
+        document.write("fare 變數: " + typeof(fare) + "<br>")
+        document.write("title 變數: " + typeof(title) + "<br>")
+        document.write("video 變數:" + typeof(video) + "<br>")
+        document.write("playDate 變數:" + typeof(playDate) + "<br>")
+        document.write("adult 變數" + typeof(adult) + "<br>")
+
+        video = ""
+        name = null;
+        
+        document.write("<hr>");
+        document.write(video);
+        document.write(name);
+    </script>
+    
+</body>
+</html>

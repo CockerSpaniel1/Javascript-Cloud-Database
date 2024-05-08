@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 基礎</title>
+</head>
+<body>
+
+    <script>
+            //單行註解
+            /* 多行註解
+
+            程式名稱：電影時光機
+            開發日期：2024/5/8
+            開發人員：艾扣扣、曾友前
+            
+            */
+
+            //宣告變數
+
+            //var 關鍵字(保留字),fare 變數名稱，= 指定或指派運算子, 300為變數所記錄的值,「;」 表示敘述結束
+            var fare=300;   //將300指定給fare 變數, number 數值變數
+            var title="金牌特務：金士曼起源" ;  //string 字串變數
+            var company="迪士尼";
+
+            var lenght=131;
+            var director='馬修·范恩';
+
+            var playDate=new Date('2021/11/18 18:00');    //日期
+            var adult=false;    //boolean 布林變數,只有true,false
+
+            //object 物件變數
+            var video={
+                title:'金牌特務：金士曼起源',
+                company:'廸士尼',
+                fare:300,
+                playDate:new Date('2021/11/18 18:00'),
+                lenght:131,
+                director:'馬修·范恩',
+                adult:false,
+                cass:'雷夫·范恩斯'
+            };
+
+            
+            document.write("電影名稱：" + title + "<br>"
+                          +"電影票價：" + fare + "<br>" 
+                          +"發行公司：" + company + "<br>"
+                          +"電影長度：" + lenght + "<br>"
+                          +"導演：" + director + "<br>"
+                          +"放映時間：" + playDate.toLocaleString() + "<br>"
+                          +"是為限制級：" + adult + "<br>"
+            );
+
+            document.write("<hr>");
+
+            document.write("電影名稱：" + video.title + "<br>"  //「.」 invoke 調用
+                          +"電影票價：" + video.fare + "<br>" 
+                          +"發行公司：" + video.company + "<br>"
+                          +"電影長度：" + video.lenght + "<br>"                          
+                          +"放映時間：" + video.playDate.toLocaleString() + "<br>"
+                          +"是為限制級：" + video.adult + "<br>"
+                          +"導演：" + video.director + "<br>"
+                          +"卡司：" + video.cass + "<br>"
+            );
+
+            document.write("<hr>");
+            document.write("fare 變數：" + typeof(fare) + "<br>");  //取得變數型別
+            document.write("title 變數：" + typeof(title) + "<br>");
+            document.write("video 變數：" + typeof(video) + "<br>");
+            document.write("playDate 變數：" + typeof(playDate) + "<br>");  //object
+            document.write("adult 變數：" + typeof(adult) + "<br>");
+
+            video="";   //空字串
+            name=null;  //空值
+            
+            document.write(video.title + "<br>");   //undefined
+            document.write(name + "<br>");  //null
+            document.write((100/0) + "<br>");   //Infinity
+            document.write(title*3 + "<br>");   //NaN ,Not a Number
+
+            
+
+
+
+
+
+
+    </script>
+    
+</body>
+</html>

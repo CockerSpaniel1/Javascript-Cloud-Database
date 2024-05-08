@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS, var,let ,const</title>
+</head>
+<body>
+
+    <script>
+        var w=100;  //變數
+        let r=10;   //變數
+        const PI=3.14159;   //常數,不可變
+
+        //w=101;
+        //PI=3.14;  //error,常數的值不可變
+
+        //object 物件變數
+        const video={
+                title:'金牌特務：金士曼起源',
+                company:'廸士尼',
+                fare:300,
+                playDate:new Date('2021/11/18 18:00'),
+                lenght:131,
+                director:'馬修·范恩',
+                adult:false,
+                cass:'雷夫·范恩斯'
+            };
+
+        {       //區塊起點
+
+            var w=200;
+            let r=11;
+            const PI=3.14;
+
+            document.write("區塊內的變數與常數：<br>");
+            document.write("var w=" + w + "<br>");  //200
+            document.write("let r=" + r + "<br>");  //11
+            document.write("const PI=" + PI + "<br>");  //3.14
+
+        }   //區塊終點
+
+
+            document.write("<hr>區塊外的變數與常數：<br>");
+            document.write("var w=" + w + "<br>");  //200;
+            document.write("let r=" + r + "<br>");  //10
+            document.write("const PI=" + PI + "<br>");  //3.14159
+
+        //video={}; // 常數的值不可變
+
+        document.write("電影票價(before)：" + video.fare + "<br>");
+        video.fare=350; //常數物件之屬性的值,可以變動
+        document.write("電影票價(after)：" + video.fare + "<br>");
+
+
+
+    </script>
+    
+</body>
+</html>

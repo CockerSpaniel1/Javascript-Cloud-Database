@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var w=100;
+        let r = 10;
+        const PI  = 3.14159
+        document.write("一開始的變數與常數 ")
+        document.write("var w=" + w + " , ")
+        document.write("let r=" + r + " , ")
+        document.write("const PI=" + PI)
+        document.write("<hr>")
+        {
+            var w=200;
+            let r = 11;
+            const PI  = 3.14;
+            document.write("區塊內的變數與常數 ")
+            document.write("var w=" + w + " , ")
+            document.write("let r=" + r + " , ")
+            document.write("const PI=" + PI)
+        }
+        document.write("<hr>")
+
+        document.write("區塊外的變數與常數 ")
+        document.write("var w=" + w + " , ")
+        document.write("let r=" + r + " , ")
+        document.write("const PI=" + PI)
+
+        
+        
+        const video = {
+        fare : 300,
+        title : "金牌特務: 金士曼起源",
+        company : "迪士尼",
+        length : 131,
+        director : "馬修 范恩",
+        playDate : new Date("2021/11/18 18:00"),
+        adult : false,
+        cass : "雷夫·范恩斯",
+        }
+
+        document.write("<hr>")
+        document.write("電影票價(before): " + video.fare + "<br>")
+        video.fare = 350;
+        document.write("電影票價(after): " + video.fare + "<br>")
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS and Form</title>
+</head>
+<body>
+    <h1>Member Management System</h1>
+    <hr>
+    <input type="email" id="email" placeholder="Enter Email"><br>
+    <input type="password" id="pwd" placeholder="Enter Password"><br>
+    <input type="text" id="name" placeholder="Enter Name"><br>
+    <input type="number" id="age" placeholder="Enter Age"><br>
+    <input type="radio" id="m" name="gender" value="男" checked>男
+    <input type="radio" id="f" name="gender" value="女">女<br>
+    <button onclick="member()">SEND</button>
+    <button>CLEAR</button>
+    <p id="result"></p>
+
+
+
+    <script>
+        
+        function member(){
+            var email=document.getElementById('email');
+            var pwd=document.getElementById('pwd');
+            var name=document.getElementById('name');
+            var age=document.getElementById('age');
+            
+            var result=document.getElementById('result');
+
+            var m=document.getElementById('m');
+            var f=document.getElementById('f');
+            var gender='';   //記錄性別的值
+
+            //條件式流程控制,單一條件
+            if(m.checked){
+                //gender='男';
+                gender=m.value;
+            }else{
+                gender=f.value;
+            }
+
+
+            result.innerHTML="帳號：" + email.value + "<br>"
+                            +"密碼：" + pwd.value + "<br>"
+                            +"姓名：" + name.value + "<br>"
+                            +"性別：" + gender + "<br>"
+                            +"年齡：" + age.value + "<br>";
+        }
+
+
+
+    </script>
+    
+</body>
+</html>
