@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS and Form</title>
+
+    <style>
+        form{
+            background-color: lightpink;
+            text-align: center;
+            padding: 1.2em;
+            border-radius: 5px;
+        }
+
+        input{
+            width: 50%;
+            border-radius: 3px;
+            padding: 1.2em;
+            margin-bottom: 1.2em;
+            border: 1px green solid;
+        }
+
+        input:focus{
+            background-color: lightcyan;
+        }
+
+
+        /* CSS 4 */
+        input::placeholder{
+            font-size: 1.2em;
+            color: darkgreen;
+        }
+
+        [type=radio],[type=button],[type=reset]{
+            display: inline;
+            width: 17%;
+        }
+
+    </style>
+
+</head>
+<body>
+    <h1>Member Management System</h1>
+    <hr>
+    <form id="myform">
+        <input type="email" id="email" placeholder="Enter Email"><br>
+        <input type="password" id="pwd" placeholder="Enter Password"><br>
+        <input type="text" id="name" placeholder="Enter Name"><br>
+        <input type="number" id="age" placeholder="Enter Age"><br>
+        <input type="radio" id="m" name="gender" value="男" checked>男
+        <input type="radio" id="f" name="gender" value="女">女<br>
+
+        <input type="button" onclick="member()" value="SEND">
+        <input  type="button" onclick="clearMember()" value="CLEAR">
+      
+        <input type="reset" value="CLEAR2">
+      
+    </form>    
+
+    <p id="result"></p>
+
+
+
+    <script>
+        
+        function member(){
+            var email=document.getElementById('email');
+            var pwd=document.getElementById('pwd');
+            var name=document.getElementById('name');
+            var age=document.getElementById('age');
+            
+            var result=document.getElementById('result');
+
+            var m=document.getElementById('m');
+            var f=document.getElementById('f');
+            var gender='';   //記錄性別的值
+
+            //條件式流程控制,單一條件
+            if(m.checked){
+                //gender='男';
+                gender=m.value;
+            }else{
+                gender=f.value;
+            }
+
+            result.innerHTML="帳號：" + email.value + "<br>"
+                            +"密碼：" + pwd.value + "<br>"
+                            +"姓名：" + name.value + "<br>"
+                            +"性別：" + gender + "<br>"
+                            +"年齡：" + age.value + "<br>";
+        }
+
+        function clearMember(){
+           document.getElementById('myform').reset();
+           document.getElementById('result').innerHTML='';
+        }
+
+    </script>
+    
+</body>
+</html>

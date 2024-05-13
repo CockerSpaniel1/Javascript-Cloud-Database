@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 多重流程控制  switch...case</title>
+</head>
+<body>
+
+    <button onclick="movie()">電影推薦</button>
+    <div id="demo"></div>
+
+    <script>
+        function movie(){
+            var d=new Date();
+            var w=d.getDay();
+            var str="";
+
+            switch(w){
+                case 1:
+                    str="《玩命關頭9》（Fast & Furious 9）";
+                    break;
+                case 2:
+                    str="《金牌特務：金士曼起源》（The King’s Man）";
+                    break;
+                case 3:
+                    str="《沙丘魔堡》（Dune）";
+                    break;
+                case 4:
+                    str="《神力女超人 1984》（Wonder Woman 1984）";
+                    break;
+                case 5:
+                    str="《花木蘭》（Mulan）";
+                    break;
+                case 6:
+                    str="《黑寡婦》（Black Widow）";
+                    break;    
+                case 0:
+                    str="《007：生死交戰》（No Time to Die）";
+                    break;
+            }
+
+
+            demo.innerHTML="今天是" + d.toLocaleString() + "<br>" 
+                          +"今天是星期" + (w===0?"日":w) + "<br>"
+
+                          +"本日推薦電影為 『" + str + "』" + "<br>" 
+                          +"<img src='images/film/" + w + ".jpg'><br>"; 
+
+        }
+    </script>
+    
+
+</body>
+</html>

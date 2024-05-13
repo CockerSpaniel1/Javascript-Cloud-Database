@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS 巢狀迴圈</title>
+
+    <style>
+        body{text-align: center;}
+
+        img{
+            width: 10vw;
+            border-radius: 0.8em;
+            padding: 0.5em;
+            border: 1px gainsboro solid;
+            margin: 0.5em;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <script>
+
+        const size=3;
+        var k=0;
+
+        for(let i=0;i<size;i++){
+            let row="";            
+            for(let j=0;j<size;j++){
+                row += "[" + i + "," + j + "] ";        //row =row + "[" + i + "," + j + "] "                
+                k++;
+                document.write("<img src='images/movies/" + k +".jpg' onclick=alert('編號:" + k + "')>");
+            }//inner
+
+            console.log(row)
+            document.write("<br>");
+            
+        }//outer
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>img {width:20vw;}</style>
+</head>
+<body>
+    <script>
+        const size = 3
+        var k = 0;
+        for(let i=0; i<size ;i++){
+            let row = "";
+            
+            for (let j=0; j<size;j++){
+                row += "[" + i + "," +j  + "]"
+                // k = (i+1)*(j+1)
+                k++
+                document.write(k)
+                document.write("<img src='images/movies/" + k +".jpg' onclick=alert('編號:"+ k +"')>")
+            }
+            console.log(row)
+            
+        }
+
+
+    </script>
+</body>
+</html>

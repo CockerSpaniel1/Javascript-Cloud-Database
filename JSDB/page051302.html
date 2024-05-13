@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input type="number" id="age" placeholder="Enter Age">
+    <button onclick="movieRating()">OK</button>
+    <p id="result"></p>
+
+    <script>
+        function movieRating(){
+            var age = document.getElementById('age').value;
+            var result = document.getElementById('result')
+
+            var str = "";
+
+
+            if (age>=18)
+                str = "限制級"
+            else if (age >= 15)
+                str = "輔15"
+            else if (age >= 12)
+                str = "輔12"
+            else if (age >= 6)
+                str = "保護級"
+            else 
+                str = "普遍級"
+
+
+            result.innerHTML ="您今年" + age + "歲<br>"
+                            + "可以看 「" + str + "」 的電影"
+        }
+
+    </script>
+</body>
+</html>

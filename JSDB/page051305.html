@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{text-align: center;}
+        img {width:10vw; border-radius: 0.8em;padding:0.5em;border: 1px gainsboro solid;margin:0.5em}
+    </style>
+
+</head>
+
+<body>
+    
+<script>
+    for (let i=1;i<=10;i++){
+        document.write("<img src='images/movies/" + i +".jpg'>")
+        if (i==5){
+            document.write("<br>")
+        }
+    }
+    document.write("<hr>")
+
+    var i=1;
+    while(i<=10){
+        document.write("<img src='images/movies/" + i +".jpg'>")
+        if (i==5){
+            document.write("<br>")
+        }
+        i++
+    }
+    
+    
+    document.write("<hr>")
+    var i=1;
+    do {
+        document.write("<img src='images/movies/" + i +".jpg'>")
+        if (i==5){
+            document.write("<br>")
+        }
+        i++
+    }  while(i<=10)
+    
+</script>
+    
+</body>
+</html>
