@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{width:20%;
+        height: 20vh;
+    padding:1.25em;
+margin:0.8em;
+float:left;
+background-color:green;
+color:yellow;
+text-align: center;}
+    </style>
+</head>
+<body>
+    <div id="m1">Fast & Furious 9</div>
+    <div id="m2">The King’s Man</div>
+    <div id="m3">Dune</div>
+    <div id="m4">Wonder Woman 1984</div>
+    <script>
+        const m1 = document.getElementById("m1")
+        const m2 = document.getElementById("m2")
+        const m3 = document.getElementById("m3")
+        const m4 = document.getElementById("m4")
+
+        m1.onmouseenter =function(){
+            setBG1();
+        }
+        m2.onmouseenter =function(){
+            setBG2("yellow", "green");
+        }
+        m3.onmouseenter =function(){
+            m3.innerHTML = setBG3();
+        }
+        
+        m4.onmouseenter =function(){
+            m4.innerHTML = setBG4("yellow", "green");
+        }
+        m1.addEventListener('mouseleave', function(){
+            m1.innerHTML=clearBG(this.id)
+        })
+        m2.addEventListener('mouseleave', function(){
+            m2.innerHTML=clearBG(this.id)
+        })
+        m3.addEventListener('mouseleave', function(){
+            m3.innerHTML=clearBG(this.id)
+        })
+        m4.addEventListener('mouseleave', function(){
+            m4.innerHTML=clearBG(this.id)
+        })
+
+        function setBG1(){
+            m1.style.backgroundColor="yellow";
+            m1.style.color='green';
+            m1.innerHTML = "玩命關頭"
+        }
+
+
+        function setBG2(bgcolor,color){
+            m2.style.backgroundColor=  bgcolor;
+            m2.style.color=color;
+            m2.innerHTML = "金牌特務 金士曼起源"
+        }
+
+
+        function setBG3(){
+            m3.style.backgroundColor="yellow";
+            m3.style.color='green';
+            return  "沙丘魔堡"
+        }
+        function setBG4(bgcolor,color){
+            m4.style.backgroundColor=bgcolor;
+            m4.style.color=color;
+            return  "神力女超人 1984"
+        }
+
+        function clearBG(id){
+            document.getElementById(id).style.backgroundColor="green";
+            document.getElementById(id).style.color="yellow";
+
+            var str = "";
+            switch(id){
+                case "m1":
+                    str = "Fast & Furious 9";
+                    break
+                case "m2":
+                    str = "The King’s Man";
+                    break
+                case "m3":
+                    str = "Dune";
+                    break
+                case "m4":
+                    str = "Wonder Woman 1984";
+                    break
+                    }
+                return str
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{text-align: center;}
+
+        img{
+            width: 10vw;
+            border-radius: 0.8em;
+            padding: 0.5em;
+            border: 1px gainsboro solid;
+            margin: 0.5em;
+            cursor: pointer;
+        }
+
+        img:hover{
+            border: black 1px solid;
+            background-color: lightyellow;
+        }
+
+        table{
+            border: 5px green solid;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td{
+            border: 1px lightgreen solid;
+        }
+       
+    
+    </style>
+
+</head>
+<body>
+    <script>
+        const size = 3
+        var k = 0;
+
+        var movie =[
+        "《玩命關頭9》（Fast & Furious 9）",
+        "《金牌特務：金士曼起源》（The King’s Man）",
+        "《沙丘魔堡》（Dune）",
+        "《神力女超人 1984》（Wonder Woman 1984）",
+        "《花木蘭》（Mulan）",
+        "《黑寡婦》（Black Widow）",
+        "《007：生死交戰》（No Time to Die）",
+        "《捍衛戰士：獨行俠》（Top Gun: Marverick）",
+        "《音速小子》（Sonic the Hedgehog）",
+        "《猛禽小隊：小丑女大解放》（Birds of Prey）",
+    ]
+    
+        document.write("<table>")
+        for(let i=0; i<size ;i++){
+            let row = "";
+            document.write("<tr>")
+            for (let j=0; j<size;j++){
+                row += "[" + i + "," +j  + "]"
+                // k = (i+1)*(j+1)
+                k++
+                document.write(k)
+                document.write("<td><img src='images/movies/" + k +".jpg'<br>" +movie[k-1]+ "</td>")
+            }
+            console.log(row)
+            document.write("</tr>")
+        }
+
+        document.write("</table>")
+
+        var tr =document.getElementsByTagName("tr")
+        for (var i=0;i<tr.length;i++){
+            tr[i].onmouseover=function(){
+                setBG(this)
+            }
+            tr[i].onmouseout=function(){
+                clearBG(this)
+            
+            }
+        }
+        var td =document.getElementsByTagName("td")
+        for (var i=0;i<td.length;i++){
+            td[i].onclick   =function(){
+                alert(getTd(this))}
+            }
+
+
+        function setBG(obj){
+            obj.style.backgroundColor = "lightpink"
+
+        }
+        
+        function clearBG(obj){
+            obj.style.backgroundColor = "inherit"
+
+        }
+        function getTd(obj){
+            return obj.textContent;
+           }
+    </script>
+</body>
+</html>
