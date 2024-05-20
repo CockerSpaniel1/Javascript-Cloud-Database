@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <button id="btn">Load</button>
+    <div id="demo1"></div>
+    <div id="demo2"></div>
+        <script>
+
+            btn.onclick=function(){
+                loadJSON();
+            };
+              
+              function loadJSON(){
+                var url='movie.json';
+                var xhr=new XMLHttpRequest();
+
+                xhr.onreadystatechange=function(){
+                    if(xhr.readyState===4 && this.status===200){
+                        var obj=xhr.response;   //物件型別
+                        var str="";
+                    }
+
+                    demo1.innerHTML="json";
+
+                };
+
+                xhr.responseType='json';
+                xhr.open('get',url,true);
+              }
+           
+        </script>
+    </body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="demo1"></div>
+    <div id="demo2"></div>
+    <div id="demo3"></div>
+    <div id="demo4"></div>
+
+    <script>
+        const d1 = document.getElementById("demo1")
+        const d2 = document.getElementById("demo2")
+        const d3 = document.getElementById("demo3")
+        const d4 = document.getElementById("demo4")
+
+
+        function myfun(){
+            alert("Hello");
+        }
+
+        var cinema = function(r){
+            var movie=new Array(
+                "《玩命關頭9》（Fast & Furious 9）",
+                "《金牌特務：金士曼起源》（The King’s Man）",
+                "《沙丘魔堡》（Dune）",
+                "《神力女超人 1984》（Wonder Woman 1984）",
+                "《花木蘭》（Mulan）",
+                "《黑寡婦》（Black Widow）",
+                "《007：生死交戰》（No Time to Die）",
+                "《捍衛戰士：獨行俠》（Top Gun: Marverick）",
+                "《音速小子》（Sonic the Hedgehog）",
+                );
+                return movie[r];
+        };
+
+        var r=Math.floor(Math.random()*9);
+        console.log(r)
+        d1.innerHTML=cinema(r);
+
+        (function(r){
+            var movie=new Array(
+                "《玩命關頭9》（Fast & Furious 9）",
+                "《金牌特務：金士曼起源》（The King’s Man）",
+                "《沙丘魔堡》（Dune）",
+                "《神力女超人 1984》（Wonder Woman 1984）",
+                "《花木蘭》（Mulan）",
+                "《黑寡婦》（Black Widow）",
+                "《007：生死交戰》（No Time to Die）",
+                "《捍衛戰士：獨行俠》（Top Gun: Marverick）",
+                "《音速小子》（Sonic the Hedgehog）",
+                );
+                d2.innerHTML=movie[r];
+        })(7);
+
+        (function(){
+            d3.innerHTML="文化券可以看電影!!";
+        })();
+        
+
+        function 
+
+
+
+
+
+
+
+
+        </script>    
+</body>
+</html>

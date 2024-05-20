@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>類別 class </title>
+</head>
+<body>
+    <div id="demo1"></div>
+    <div id="demo2"></div>
+
+    <script>
+        
+        //建立class,使用關鍵字class
+        class Movie{    //start
+
+            //建構子(式) constructor
+            constructor(id,engTitle,chiTitle,length){
+                this.id=id;
+                this.engTitle=engTitle;
+                this.chiTitle=chiTitle;
+                this.length=length;
+            }
+
+            //建立method 方法,(函數)
+            showMovie(){
+                console.log("電影編號：" + this.id);
+                console.log("英文名稱：" + this.engTitle);
+                console.log("中文名稱：" + this.chiTitle);
+                console.log("放映長度：" + this.length);
+            }
+
+            getMovieInfo(){
+                return "電影編號：" + this.id + "<br>"
+                      +"英文名稱：" + this.engTitle + "<br>"
+                      +"中文名稱：" + this.chiTitle + "<br>"
+                      +"放映長度：" + this.length + "<br>" 
+            }
+
+            //getter
+            getMovieId(){
+                return "電影編號：" + this.id + "<br>";
+            }
+
+            getMovieEngTitle(){
+                return  "英文名稱：" + this.engTitle + "<br>";
+            }
+
+            getMovieChiTitle(){
+                return  "中文名稱：" + this.chiTitle + "<br>";
+            }
+
+            getMovieLength(){
+                return  "放映長度：" + this.length + "<br>";
+            }
+
+            //setter
+            setMovieEngTitle(engTitle){
+                this.engTitle=engTitle;
+            }
+
+            setMovieChiTitle(chiTitle){
+                this.chiTitle=chiTitle;
+            }
+
+            setMovieLength(length){
+                this.length=length;
+            }
+
+
+            //static method 靜態方法,可以使用類別名稱直接調用
+            static getMovieSystem(){
+                return "BSNET 電影管理系統";
+            }   
+
+        }//end
+
+        //----------------------------------------------
+
+        //Inheritance 繼承,extends 關鍵字
+        class subMovie extends Movie{
+            constructor (id,engTitle,chiTitle,length,case2){
+                //呼叫上(父)類別的建構子
+                super(id,engTitle,chiTitle,length);
+                this.case2=case2;
+            }
+        }        
+
+        const d1=document.getElementById('demo1');
+        const d2=document.getElementById('demo2');
+        
+
+        //建立實體物件
+        var movie=new Movie("001","（Fast & Furious 9）","《玩命關頭9》",120);
+        movie.showMovie();
+
+        d1.innerHTML=movie.getMovieInfo();
+
+        d1.innerHTML += "<hr>" + movie.getMovieEngTitle();
+        d1.innerHTML +=  movie.getMovieChiTitle();
+
+        movie.setMovieLength(150);
+        d1.innerHTML +=movie.getMovieLength();
+
+       // console.log(Movie.getMovieChiTitle());  //直接用類別名稱調用(invoke), error ,Movie.getMovieChiTitle is not a function
+          console.log(Movie.getMovieSystem());    //static method 靜態方法,可以使用類別名稱直接調用
+
+        var sub=new subMovie("002","（The King’s Man）","《金牌特務：金士曼起源》",120,"金士曼起源");
+        d2.innerHTML="<hr>"+sub.getMovieInfo();
+
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="demo1"></div>
+    <div id="demo2"></div>
+    <script>
+        class Movie{
+            
+            constructor(id, engTitle, chiTitle, length){
+                this.id = id;
+                this.engTitle = engTitle;
+                this.chiTitle = chiTitle;
+                this.length = length;
+            }
+            showMovie(){
+                console.log("電影編號: " + this.id)
+                console.log("英文名稱: " + this.engTitle)
+                console.log("中文名稱: " + this.chiTitle)
+                console.log("放映長度: " + this.length)
+            }
+            getMovieInfo(){
+                return    "電影編號: " + this.id + "<br>"
+                        + "英文名稱: " + this.engTitle + "<br>"
+                        + "中文名稱: " + this.chiTitle + "<br>"
+                        + "放映長度: " + this.length + "<br>"
+            }
+
+            getMovieId(){
+                return   "電影編號: " + this.id + "<br>";
+                        
+            }
+            getMovieEngTitle(){
+                return "英文名稱: " + this.engTitle + "<br>";
+            }
+            getMovieChiTitle(){
+                return "中文名稱: " + this.chiTitle + "<br>";
+            }
+
+            getMovieLength(){
+                return "放映長度: " + this.length + "<br>"
+            }
+
+            setMovieEngTitle(engTitle){
+                this.engTitle = engTitle;
+            }
+            setMovieChiTitle(chiTitle){
+                this.chiTitle = chiTitle;
+            }
+
+            getMovieLength(){
+                 this.length = length
+            }
+
+        }
+        const d1=document.getElementById('demo1');
+        const d2=document.getElementById('demo2');
+
+
+        var movie =new Movie("001","（Fast & Furious 9）", "《玩命關頭9》" , 120);
+        movie.showMovie();
+
+        d1.innerHTML = movie.getMovieInfo();
+        d1.innerHTML += "<hr>" + movie.getMovieEngTitle()
+        d1.innerHTML += movie.getMovieChiTitle()
+
+    </script>
+</body>
+</html>

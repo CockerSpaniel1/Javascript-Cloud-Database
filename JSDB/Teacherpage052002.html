@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>匿名函數(Anonymous function)與箭頭函數(Arrow function)</title>
+</head>
+<body>
+
+    <div id="demo1"></div>
+    <div id="demo2"></div>
+    <div id="demo3"></div>
+    <div id="demo4"></div>
+    
+
+    <script>
+        const d1=document.getElementById('demo1');
+        const d2=document.getElementById('demo2');
+        const d3=document.getElementById('demo3');
+        const d4=document.getElementById('demo4');
+
+        //具名函數
+        function myfun(){
+            alert("Hello");
+        }
+
+        //匿名函數
+        var cinema=function(r){
+            var movie=new Array(
+                "《玩命關頭9》（Fast & Furious 9）",
+                "《金牌特務：金士曼起源》（The King’s Man）",
+                "《沙丘魔堡》（Dune）",
+                "《神力女超人 1984》（Wonder Woman 1984）",
+                "《花木蘭》（Mulan）",
+                "《黑寡婦》（Black Widow）",
+                "《007：生死交戰》（No Time to Die）",
+                "《捍衛戰士：獨行俠》（Top Gun: Marverick）",
+                "《音速小子》（Sonic the Hedgehog）"
+                );
+                return movie[r];
+        };
+
+      
+        var r=Math.floor(Math.random()*9);    // 0 到 1 之間(包含 0，不包含 1) 
+        console.log(r);
+        d1.innerHTML=cinema(r);
+
+          //即時匿名
+          (function(r){
+            var movie=new Array(
+                "《玩命關頭9》（Fast & Furious 9）",
+                "《金牌特務：金士曼起源》（The King’s Man）",
+                "《沙丘魔堡》（Dune）",
+                "《神力女超人 1984》（Wonder Woman 1984）",
+                "《花木蘭》（Mulan）",
+                "《黑寡婦》（Black Widow）",
+                "《007：生死交戰》（No Time to Die）",
+                "《捍衛戰士：獨行俠》（Top Gun: Marverick）",
+                "《音速小子》（Sonic the Hedgehog）"
+                );
+                d2.innerHTML=movie[r];
+        })(7);
+
+        (function(){
+            d3.innerHTML="文化劵可以看電影!!";
+        })();   //(),不可省略
+
+        
+        //一般傳統函數,空參數,無傳回值
+        function myMovie(){
+            d4.innerHTML="My Movie <br>";
+        }
+        myMovie();
+
+        //箭頭函數,ES6新增
+        var myCinema=()=>{d4.innerHTML=d4.innerHTML+ "My Cinema <br>";};
+        myCinema();
+
+        //一般傳函數,空參數,有傳回值
+        function yourMovie(){
+            return "Your Movie <br>";
+        }
+        d4.innerHTML=d4.innerHTML + yourMovie();
+
+        //箭頭函數,空參數,有傳回值
+        var yourCinema=()=>"Your Cinema <br>";
+        d4.innerHTML=d4.innerHTML + yourCinema();
+
+        //箭頭函數,有參數,有傳回值
+        var hisMovie=(x,y)=>"His Movie , 電影票價總計是 "+ (x*y) + " 元<br>";
+        d4.innerHTML=d4.innerHTML + hisMovie(280,3);
+
+        var hisCinema=(x)=>"His Cinema , 電影票價為 " + (x) + " 元<br>";
+        d4.innerHTML=d4.innerHTML + hisCinema(280);
+
+        var herMovie=y=>"Her Movie , 購買 " + y + " 張電影票 <br>"; //只有一個參數, () 可省略
+        d4.innerHTML=d4.innerHTML + herMovie(3);
+
+
+
+    </script>
+</body>
+</html>

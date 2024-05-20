@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Class</title>
+</head>
+<body>
+
+    <div id="demo1"></div>
+    <div id="demo2"></div>
+
+    <script src="Movie.js"></script>
+
+    <script>
+
+        const d1=document.getElementById('demo1');
+        const d2=document.getElementById('demo2');
+        
+
+        //建立實體物件
+        var movie=new Movie("001","（Fast & Furious 9）","《玩命關頭9》",120);
+        movie.showMovie();
+
+        d1.innerHTML=movie.getMovieInfo();
+
+        d1.innerHTML += "<hr>" + movie.getMovieEngTitle();
+        d1.innerHTML +=  movie.getMovieChiTitle();
+
+        movie.setMovieLength(150);
+        d1.innerHTML +=movie.getMovieLength();
+
+       // console.log(Movie.getMovieChiTitle());  //直接用類別名稱調用(invoke), error ,Movie.getMovieChiTitle is not a function
+          console.log(Movie.getMovieSystem());    //static method 靜態方法,可以使用類別名稱直接調用
+
+        var sub=new subMovie("002","（The King’s Man）","《金牌特務：金士曼起源》",120,"金士曼起源");
+        d2.innerHTML="<hr>"+sub.getMovieInfo();
+
+
+    </script>
+    
+</body>
+</html>
