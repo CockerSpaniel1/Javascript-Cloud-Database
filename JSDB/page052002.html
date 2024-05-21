@@ -61,12 +61,30 @@
         })();
         
 
-        function 
+        function  myMovie(){
+            d4.innerHTML = "My Movie <br>";
+        }
+        myMovie();
+        
+        var myCinema=()=>{d4.innerHTML=d4.innerHTML+ "My Cinema <br>";};
+        myCinema();
 
+        function yourMovie(){
+            return "Your Movie <br>";
+        }
+        d4.innerHTML = d4.innerHTML +yourMovie();
 
+        var yourCinema=()=>"Your Cinema <br>";
+        d4.innerHTML =d4.innerHTML+ yourCinema();
 
+        var hisMovie=(x, y)=>"His Movie , 電影票價總計是 " + (x*y) + "元<br>";
+        d4.innerHTML =d4.innerHTML+ hisMovie(280, 3)
 
+        var hisCinema=(x)=>"His Cinema , 電影票價為 " + (x) + "元<br>";
+        d4.innerHTML =d4.innerHTML+ hisCinema(280)
 
+        var herMovie=(y)=>"Her Movie ,購買 " + y + "張電影票<br>";
+        d4.innerHTML =d4.innerHTML+ herMovie(3)
 
 
 

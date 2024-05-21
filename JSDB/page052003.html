@@ -52,10 +52,19 @@
                 this.chiTitle = chiTitle;
             }
 
-            getMovieLength(){
-                 this.length = length
+            setMovieLength(length){
+                 this.length = length;
             }
+            static getMovieSystem(){
+                return "BSNET 電影管理系統";
+            }
+        }
 
+        class subMovie extends Movie{
+            constructor (id, engTitle,chiTitle,length ,case2){
+                super(id, engTitle,chiTitle,length);
+                this.case2 =case2;
+            }
         }
         const d1=document.getElementById('demo1');
         const d2=document.getElementById('demo2');
@@ -65,9 +74,18 @@
         movie.showMovie();
 
         d1.innerHTML = movie.getMovieInfo();
+
         d1.innerHTML += "<hr>" + movie.getMovieEngTitle()
         d1.innerHTML += movie.getMovieChiTitle()
 
+        movie.setMovieLength(150);
+        d1.innerHTML += movie.getMovieLength();
+
+
+        console.log(Movie.getMovieSystem());
+
+        var sub= new subMovie("002","（The King’s Man）","《金牌特務：金士曼起源》",120,"金士曼起源");
+        d2.innerHTML = "<hr>" +sub.getMovieInfo();
     </script>
 </body>
 </html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="demo"></div>
+    <script>
+        var movie=[
+               [ "《玩命關頭9》（Fast & Furious 9）",2.0],
+               [ "《金牌特務：金士曼起源》（The King’s Man）",2.5],
+               [ "《沙丘魔堡》（Dune）",1.8],
+               [ "《神力女超人 1984》（Wonder Woman 1984）",2.0],
+               [ "《花木蘭》（Mulan）",2.1],
+               [ "《黑寡婦》（Black Widow）",2.0],
+               [ "《007：生死交戰》（No Time to Die）",2.5],
+               [ "《捍衛戰士：獨行俠》（Top Gun: Marverick）",1.5],
+               [ "《音速小子》（Sonic the Hedgehog）",1.6]
+                ];
+        var str="<ul>";
+
+        for (let i=0; i<movie.length;i++){
+
+            for(let j=0;j<movie[i].length;j++){
+                if(j===0){
+                    str += "<li>"+movie[i][j] + " -> ";
+                }else{
+                    str +=movie[i][j] +" 小時</li>";
+                }
+
+            }
+            str += "<br>"
+        }
+
+        str +="</ul>";
+        demo.innerHTML =str;
+            
+    </script>
+
+</body>
+</html>
