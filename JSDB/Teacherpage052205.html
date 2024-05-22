@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript import module</title>
+</head>
+<body>
+    <h1>電影購票系統</h1>
+    <hr>
+    <input type="number" placeholder="Enter Price" id="price"><br>
+    <input type="number" placeholder="Enter QTY" id="qty"><br>
+    <input type="radio" value="1" id="r1" name="pay">現金<br>
+    <input type="radio" value="2" id="r2" name="pay">信用卡(95折)<br>
+    <input type="radio" value="3" id="r3" name="pay">Line Pay(90折)<br>
+    <input type="radio" value="4" id="r4" name="pay">悠遊卡(88折)<br>
+    <input type="radio" value="5" id="r5" name="pay">一卡通(85折)<br>
+    <div id="demo"></div>  
+
+    <script type="module">
+        import {payMethod} from './film.js';
+
+        const price=document.getElementById('price');
+        const qty=document.getElementById('qty');
+        const r1=document.getElementById('r1');
+        const r2=document.getElementById('r2');
+        const r3=document.getElementById('r3');
+        const r4=document.getElementById('r4');
+        const r5=document.getElementById('r5');
+        const demo=document.getElementById('demo');
+        
+
+        r1.onclick=function(){
+            demo.innerHTML=payMethod(this.value*1,price.value,qty.value);
+            console.log(this.value);
+        };
+
+        r2.onclick=function(){
+            demo.innerHTML=payMethod(this.value*1,price.value,qty.value);
+            console.log(this.value);
+        };
+
+        r3.onclick=function(){
+            demo.innerHTML=payMethod(this.value*1,price.value,qty.value);
+            console.log(this.value);
+        };
+
+        r4.onclick=function(){
+            demo.innerHTML=payMethod(this.value*1,price.value,qty.value);
+            console.log(this.value);
+        };
+
+        r5.onclick=function(){
+            demo.innerHTML=payMethod(this.value*1,price.value,qty.value);
+            console.log(this.value);
+        };
+
+
+
+       
+    </script>
+    
+</body>
+</html>

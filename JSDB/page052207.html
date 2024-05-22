@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .mydiv{
+            border:1px yellow solid;
+        }
+    </style>
+</head>
+<body>
+    <div id="demo"></div>
+    <script>
+        var movie =new Array(
+            "《玩命關頭9》（Fast & Furious 9）",
+            "《金牌特務：金士曼起源》（The King’s Man）",
+            "《沙丘魔堡》（Dune）",
+            "《神力女超人 1984》（Wonder Woman 1984）",
+            "《花木蘭》（Mulan）",
+            "《黑寡婦》（Black Widow）",
+            "《007：生死交戰》（No Time to Die）",
+            "《捍衛戰士：獨行俠》（Top Gun: Marverick）",
+            "《音速小子》（Sonic the Hedgehog）",
+            "《猛禽小隊：小丑女大解放》（Birds of Prey）",
+        )
+
+        const demo=document.getElementById("demo")
+        movie.forEach(
+            m=>{
+                const d=document.createElement("div");
+                d.classList.add('mydiv');
+                d.innerHTML=`${m}<br>`;
+                demo.appendChild(d);
+            }
+        )
+    </script>
+</body>
+</html>

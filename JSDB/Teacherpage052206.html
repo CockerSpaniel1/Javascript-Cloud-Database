@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript import module</title>
+</head>
+<body>
+    <div id="demo"></div>
+
+    <script type="module">
+        import{ Cinema } from './Cinema.js';
+
+        var cinema=new Cinema('001',"（No Time to Die）","《007：生死交戰》",120);
+        demo.innerHTML=cinema.getCinemaInfo();
+
+    </script>
+    
+</body>
+</html>

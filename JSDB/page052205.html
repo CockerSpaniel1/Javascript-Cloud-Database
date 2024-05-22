@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>電影票訂購系統</h1>
+    <input type="number" id="price" placeholder="Enter Price"><br>
+    <input type="number" id="qty" placeholder="Enter Qty"><br>
+    <input type="radio" name="pay" id="r1" value="1">現金<br>
+    <input type="radio" name="pay" id="r2" value="2">信用卡<br>
+    <input type="radio" name="pay" id="r3" value="3">Line Pay<br>
+    <input type="radio" name="pay" id="r4" value="4">悠遊卡<br>
+    <input type="radio" name="pay" id="r5" value="5">一卡通<br>
+    <div id="demo"></div>
+
+    <div id="demo1"></div>
+    <div id="demo2"></div>
+
+    <script type="module">
+        import {payMethod} from "./film.js";
+
+
+        demo2.innerHTML = payMethod(pay, price, qty);
+
+        const price= document.getElementById("price")
+        const qty= document.getElementById("qty")
+        const r1= document.getElementById("r1")
+        const r2= document.getElementById("r2")
+        const r3= document.getElementById("r3")
+        const r4= document.getElementById("r4")
+        const r5= document.getElementById("r5")
+        const demo= document.getElementById("demo")
+
+        r1.onclick=function(){
+            demo.innerHTML=payMethod(this.value*1, price.value, qty.value)
+            console.log(this.value)
+        }
+    </script>
+    
+</body>
+</html>

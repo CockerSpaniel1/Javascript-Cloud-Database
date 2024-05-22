@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Load JSON </title>
+</head>
+<body>
+    <button id="btn">Load</button>
+    <div id="demo1"></div>
+    <div id="demo2"></div>
+        <script>
+
+            btn.onclick=function(){
+                loadJSON();
+            };
+              
+              function loadJSON(){
+                var url='movie.json';
+                var xhr=new XMLHttpRequest();
+
+                xhr.onreadystatechange=function(){
+                    if(xhr.readyState===4 && this.status===200){
+                        var obj=xhr.response;   //物件型別
+                        var str="";                        
+                        demo1.innerHTML=JSON.stringify(obj);    ////JS物件轉為JSON字串
+                        str="<hr>英文名稱：" + obj["engName"] + "<br>"
+                           +"中文名稱：" + obj["chiName"] + "<br>"
+                           +"上映時間：" + obj["release"] + "<br>"
+                           +"電影長度：" + obj["length"] + "<br>"
+                           +"發行公司：" + obj["company"] + "<br>"
+                           +"導演：" + obj["director"] + "<br>"
+                           +"中文名稱：" + obj["chiName"] + "<br>";
+
+                           str =str+ "卡司：<ul>";
+                            for(let i=0;i<obj['cast'].length;i++){
+                                str +="<li>" + obj['cast'][i] + "</li>";
+                            }
+                            str +="</ul>";
+
+                            demo2.innerHTML=str;
+                    }
+                };
+
+                xhr.responseType='json';
+                xhr.open('get',url,true);   //初始化一個請求
+                xhr.send(); //發送請求
+              }
+           
+        </script>
+    </body>
+</html>
