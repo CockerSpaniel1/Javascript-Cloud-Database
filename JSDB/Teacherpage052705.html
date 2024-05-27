@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>測試 Web LocalStorage 是否真的被儲存</title>
+</head>
+<body>
+
+    <script>
+        var price=300;
+        document.write('電影名稱：' + window.localStorage.getItem('movie') + "<br>"
+                        + "訂購數量：" + window.localStorage.getItem('qty') + "<br>"
+                        + "電影票價：" + price + "<br>"
+                        + "應付總額：" + window.localStorage.getItem('qty')*price + "<br>");
+    </script>
+    
+</body>
+</html>

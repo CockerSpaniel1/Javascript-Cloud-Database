@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>async and callback</title>
+</head>
+<body>
+
+    <button id="btn">async and callback</button>   
+    <div id="demo"></div>
+
+    <script>
+        //調用非同步操作
+        btn.onclick=function(){
+                asyncfun(handle);
+        }
+
+            //模擬非同步的函數
+            function asyncfun(callback){
+                console.log("非同步操作開始.....");
+                setTimeout(()=>{
+                    console.log("非同步操作完成");
+                    callback('操作成功');   //調用callback函數
+                },2000);
+            }
+
+            //定義callback 函數
+            function handle(result){
+                console.log('callback 函數被調結果:' + result);
+                alert('操作成功');
+                demo.innerHTML='~~ finish ~~';
+            }
+
+    </script>
+    
+</body>
+</html>

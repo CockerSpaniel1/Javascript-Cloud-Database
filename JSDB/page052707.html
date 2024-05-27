@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        var price=300;
+        document.write ( "電影名稱: " + window.sessionStorage.getItem("movie") + "<br>"
+                    + "訂購數量: " + window.sessionStorage.getItem("qty") + "<br>" 
+                    + "電影票價: " + price + "<br>" 
+                    + "應付總額: " + window.sessionStorage.getItem("qty") * price + "<br>" )
+
+    </script>
+</body>
+</html>

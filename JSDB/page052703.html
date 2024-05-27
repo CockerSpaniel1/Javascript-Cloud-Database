@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">promise</button>
+    <div id="demo"></div>
+    <div id="demo2"></div>
+    <script>
+        const promise =new Promise((resolve,reject)=>{
+            setTimeout(()=>{
+                const success=true;
+                if(success){
+                    resolve("操作成功!")
+                }else{
+                    reject("操作失敗!")
+                }   
+            },2000)
+        });
+
+        btn.onclick=function(){
+            // promise.then(
+            //     (result)=>{
+            //         demo.innerHTML=result
+            //     },
+            //     (error)=>{
+            //         demo.innerHTML=error
+            //     });
+
+            promise
+                .then((result)=>{
+                    demo.innerHTML=result;
+                })
+                .catch((error)=>{
+                    demo.innerHTML=error;
+                })
+                .finally(()=>{
+                    demo.innerHTML += "<br>" + "操作結束";
+                });
+            
+
+            const promise2=new Promise((resolve)=>{
+                setTimeout(()=>{
+                    resolve(10);
+                },2000);
+            })
+            .then((value)=>{
+                demo2.innerHTML=value;
+                return value;
+            })
+            .then((value)=>{
+                demo2.innerHTML += "<br>" + (value*10);
+                return value;
+            })
+            .then((value)=>{
+                demo2.innerHTML += "<br>" + (value*100);
+                return value;
+            })
+            .then((value)=>{
+                demo2.innerHTML += "<br>" + (value*1000);
+                return value;
+            })
+            .catch((error)=>{
+                demo2.innerHTML = error;
+            })
+            .finally(()=>{
+                demo2.innerHTML += "<br> end "
+            })
+        }
+
+    </script>
+</body>
+</html>

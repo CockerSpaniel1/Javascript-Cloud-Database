@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>async and callback and then</title>
+</head>
+<body>
+
+    <button id="btn">async and callback and then...</button>   
+    <div id="demo"></div>
+    <div id="demo2"></div>
+
+    <script>
+      const promise=new Promise((resovle,reject)=>{
+        //模擬非同步操作
+        setTimeout(()=>{
+            const success=true; //假設操作成功
+            if(success){
+                resovle('操作成功囉!!');
+            }else{
+                reject('操作失敗囉!!');
+            }
+        },2000)
+      });
+
+
+
+      btn.onclick=function(){        
+      
+      /*
+        //then 方法處理Promise 成功的結果,有兩個參數,第一個處理成功,第二個是處理失敗(可省略)
+        promise.then(
+            (result)=>{
+                demo.innerHTML=result;  //操作成功
+            },
+            (error)=>{
+                demo.innerHTML=error;   //操作失敗
+            }
+        );
+        */
+
+        /*
+        //catch 方法處理 Promise 失敗結果
+        promise
+            .then((result)=>{
+                demo.innerHTML=result;  //操作成功
+            })
+            .catch((error)=>{
+                demo.innerHTML=error;   //操作失敗
+            });
+
+           */ 
+
+            //finally 方法 Promise 完成,不管成功或失敗皆執行 
+           promise
+            .then((result)=>{
+                demo.innerHTML=result;  //操作成功
+            })
+            .catch((error)=>{
+                demo.innerHTML=error;   //操作失敗
+            })
+            .finally(()=>{
+                demo.innerHTML +="<br>" + "~ 操作結束 ~ "; //操作完成
+            });
+  
+
+
+      const promise2=new Promise((resovle)=>{
+            setTimeout(()=>{
+                resovle(10);
+            },2000);
+            })
+            .then((value)=>{
+                demo2.innerHTML=value;
+                return value;
+            })
+            .then((value)=>{
+                demo2.innerHTML += "<br>" + (value*10);
+                return value;
+            })
+            .then((value)=>{
+                demo2.innerHTML += "<br>" + (value*100);
+                return value;
+            })
+            .then((value)=>{
+                demo2.innerHTML += "<br>" + (value*1000);
+                return value;
+            })
+            .catch((error)=>{
+                demo2.innerHTML =error;
+            })
+            .finally(()=>{
+                demo2.innerHTML +="<br>~~~~ the end ~~~~~";
+            })
+
+        };
+      
+
+    </script>
+    
+</body>
+</html>

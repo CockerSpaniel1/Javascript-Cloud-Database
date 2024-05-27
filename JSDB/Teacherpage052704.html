@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js web Storage API</title>
+</head>
+<body>    
+    <input type="text" id="movie" placeholder="movie"><br>
+    <input type="number" id="qty" placeholder="qty"><br>
+    <button onclick="order()">訂購</button>
+    <button onclick="result()">查看</button>  
+    <button onclick="clearLocalStorage()">清除</button>  <br>
+    <a href="page052705.html">到另一個檔案查看是否有訂購完成</a>
+    <div id="demo"></div>
+
+    <script>
+        /*
+        localStorage :
+        在瀏覽器關閉並重新打開時資料仍存在
+        儲存沒有過期日期的資料
+        透過JS 清除瀏覽器緩存/本地存儲的資料來清除
+        */
+
+        function order(){
+            window.localStorage.setItem('movie',movie.value);
+            window.localStorage.setItem('qty',qty.value);
+            window.alert("訂購完成");
+        }
+
+        function result(){
+            var price=300;
+            var movie=window.localStorage.getItem('movie');
+            var qty=window.localStorage.getItem('qty');
+            demo.innerHTML='電影名稱：' + movie + "<br>"
+                          + "訂購數量：" + qty + "<br>"
+                          + "電影票價：" + price + "<br>"
+                          + "應付總額：" + qty*price + "<br>";
+        }
+       
+        function clearLocalStorage(){
+            window.localStorage.clear();    //清除所有
+            alert('清除所有訂購!!');
+            demo.innerHTML='';
+        }
+    </script>
+
+</body>
+</html>
