@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS encode and decode</title>
+</head>
+<body>
+    <form action="page052902.html" method="get">
+        <input type="text" name="name" placeholder="Enter name"><br>
+        <input type="email" name="email" placeholder="Enter email"><br>
+        <input type="text" name="gender" placeholder="Enter gender"><br>
+        <input type="submit" value="SEND">
+    </form>
+    
+    <div id="demo0"></div>
+    <div id="demo1"></div>
+    <div id="demo2"></div>
+
+    <script>
+
+        function decode(url){
+            var p=url.indexOf('?'); //取得"?" 在url 中的第幾個位置           
+            if(p!==-1){
+                var str=url.substring(p+1); //傳回"?" 之後的所有字串                
+                var arrStr=str.split('&');  //將str 以 '&' 分割,傳回陣列
+                 console.log(p);
+                 console.log(str);
+                 arrStr.forEach(function(e){
+                       console.log(e); 
+                });
+                for(let i=0;i<arrStr.length;i++){
+                    let pair=arrStr[i].split('=');
+                    let key=decodeURIComponent(pair[0]);
+                    let value=decodeURIComponent(pair[1]);
+                    console.log(i + ":" + key + "->" + value);
+                    document.getElementById('demo' + i).innerHTML=value ;                    
+                }
+            }
+        }
+
+        var url=window.location.href;
+        console.log(url);
+        decode(url);
+    </script>
+</body>
+</html>

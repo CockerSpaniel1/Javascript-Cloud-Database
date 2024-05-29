@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <title>Document</title>
+</head>
+<body>
+    <button id="btnAdd">ADD Face</button>
+    <div id="demo"></div>
+
+    <!-- <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firestore.js"></script>
+     -->
+    <script type="module">
+       
+        //匯入所需要的函數
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+        //新增其他的SDK
+        import { getFirestore,doc,getDoc,collection,getDocs} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyAQ3yatJFv0IiezkRVl47MPaIWyyOuj68Q",
+          authDomain: "jsdb202405.firebaseapp.com",
+          projectId: "jsdb202405",
+          storageBucket: "jsdb202405.appspot.com",
+          messagingSenderId: "608554569857",
+          appId: "1:608554569857:web:af20e8f497d4c67cd87d80"
+        };
+      
+        // Firebase 初始化
+        const app = initializeApp(firebaseConfig);       
+        const db=getFirestore(app); //建立資料物件常數
+
+        const demo=document.getElementById("demo");
+
+
+        //讀取資料
+        //讀取一筆資料
+        const docRef=doc(db,"EmojiText","01");
+        const docSnap=await getDoc(docRef);
+        //console.log(docSnap);
+        //console.log(docSnap.data());
+
+        if(docSnap.exists()){
+            console.log(docSnap.data());
+        }else{
+            console.log("無此文件");
+        }
+
+        //---------------------------
+        //讀取所有的資料
+        const snap=await getDocs(collection(db,"EmojiText"));
+        snap.forEach((doc)=>{
+            console.log(doc.id,"=>",doc.data());
+        });
+
+
+        
+ 
+
+      </script>
+     
+
+    
+</body>
+</html>
