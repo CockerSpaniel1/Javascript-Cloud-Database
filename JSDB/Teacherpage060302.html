@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firestore CRUD,create,read,update,delete</title>
+</head>
+<body>
+    <input type="number" id="no" placeholder="Enter Product No"><br>
+    <input type="text" id="name" placeholder="Enter Product Name"><br>
+    <input type="number" id="price" placeholder="Enter Product Price"><br>
+    <select id="supplierid">
+        <option value="" selected disabled hidden> Choose a Supplier</option>
+        <option value="1">大同</option>
+        <option value="2">桶一</option>
+        <option value="3">忠孝</option>
+        <option value="4">仁愛</option>
+    </select><br>
+    <button id="btnSet">SET DATA</button>     
+    <button id="btnGet">GET DATA</button> 
+    <div id="demo"></div>
+    <div id="demo2"></div>
+    <div id="demo3"></div>
+    
+    <script type="module">
+       
+        //匯入所需要的函數
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        //新增其他的SDK
+        import { getFirestore,setDoc,doc,query,onSnapshot,collection} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyAQ3yatJFv0IiezkRVl47MPaIWyyOuj68Q",
+          authDomain: "jsdb202405.firebaseapp.com",
+          projectId: "jsdb202405",
+          storageBucket: "jsdb202405.appspot.com",
+          messagingSenderId: "608554569857",
+          appId: "1:608554569857:web:af20e8f497d4c67cd87d80"
+        };
+      
+        // Firebase 初始化
+        const app = initializeApp(firebaseConfig);       
+        const db=getFirestore(app); //建立資料庫物件常數
+
+        const no=document.getElementById('no');
+        const name=document.getElementById('name');
+        const price=document.getElementById('price');
+        const supplierid=document.getElementById('supplierid');
+        const btnSet=document.getElementById('btnSet');
+        const btnGet=document.getElementById('btnGet');
+        const demo=document.getElementById('demo');
+        const demo2=document.getElementById('demo2');
+        const demo3=document.getElementById('demo3');
+
+        btnSet.onclick=function(){
+            setData();
+        };
+
+        getDataListen();    //呼叫讀取監聽函數
+
+        //新增文件        
+         async function setData(){
+            await setDoc(doc(db,"Product",no.value),{
+                name:name.value,
+                price:price.value*1,
+                supplierid:supplierid.value*1
+            }).then(function(){
+                demo.innerHTML=no.value +"產品寫入OK<br>";
+                no.value='';
+                name.value='';
+                price.value='';
+                supplierid.value='';
+            });
+         }
+
+         //讀取文件(監聽)
+         /*
+         使用firestore 取得即時更新
+         透過onSnapshot()方法監聽文件
+         可立即使用文件的內容建立文件快照
+         再每次內容變更時，呼叫更新文件快照
+         */
+         function getDataListen(){
+            const q=query(collection(db,"Product"));
+            const dataAll=onSnapshot(q,(qs)=>{
+                demo2.innerHTML='';
+                qs.forEach((doc)=>{
+                    demo2.innerHTML +="<ul>產品編號：" + doc.id + "："
+                                   +"<li>產品名稱：" + doc.data().name + "</li>"
+                                   +"<li>產品價格：" + doc.data().price + "</li>"
+                                   +"<li>供應商編號：" + doc.data().supplierid + "</li></ul>";
+                });
+            });
+         }
+
+        
+
+
+        </script>
+</body>
+</html>

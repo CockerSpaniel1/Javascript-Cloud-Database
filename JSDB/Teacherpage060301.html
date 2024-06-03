@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <title>Firebase firestore</title>
+</head>
+<body>
+    <button id="btnAdd">ADD Face</button>
+    <div id="demo"></div>
+
+ 
+
+    <script type="module">
+       
+        //匯入所需要的函數
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+        //新增其他的SDK
+        import { getFirestore,doc,getDoc,collection,getDocs,setDoc,addDoc} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyAQ3yatJFv0IiezkRVl47MPaIWyyOuj68Q",
+          authDomain: "jsdb202405.firebaseapp.com",
+          projectId: "jsdb202405",
+          storageBucket: "jsdb202405.appspot.com",
+          messagingSenderId: "608554569857",
+          appId: "1:608554569857:web:af20e8f497d4c67cd87d80"
+        };
+      
+        // Firebase 初始化
+        const app = initializeApp(firebaseConfig);       
+        const db=getFirestore(app); //建立資料庫物件常數
+
+        const demo=document.getElementById("demo");
+        const btnAdd=document.getElementById("btnAdd");
+
+        btnAdd.onclick=function(){
+            //addData();
+            //setData();
+            setData2();
+        }
+
+
+        //讀取資料
+        //讀取一筆資料
+        const docRef=doc(db,"EmojiText","01");
+        const docSnap=await getDoc(docRef);
+        //console.log(docSnap);
+        //console.log(docSnap.data());
+
+        if(docSnap.exists()){
+            console.log(docSnap.data());
+        }else{
+            console.log("無此文件");
+        }
+
+        //---------------------------
+        //讀取所有的資料
+        const snap=await getDocs(collection(db,"EmojiText"));
+        snap.forEach((doc)=>{
+            console.log(doc.id,"=>",doc.data());
+        });
+
+         //讀取所有的資料
+         snap.forEach((doc)=>{
+            let data=doc.data();
+            demo.innerHTML +=doc.id + "<br>";
+            demo.innerHTML +="編號：" +data["faceId"] + "<br>";
+            demo.innerHTML +="表情：" +data["face"] + "<br>";
+            demo.innerHTML +="類別：" +data["category"] + "<hr>";
+         });
+
+         //新增文件
+         //自動產生文件id,addDoc()
+         //await 運算子可被用來等待 Promise,只能在async function 內使用
+        async function addData(){
+            const docEmoji=await addDoc(collection(db,"EmojiText"),{
+                faceId:6,
+                face:"𓈒@.@",
+                category:"surprise"
+            }).then(function(){
+                demo.innerHTML="新增文件OK<br>";
+            });
+         }
+
+         //新增文件
+         //自動產生文件id,setDoc()
+         async function setData(){
+            const docEmoji=doc(collection(db,"EmojiText"));
+            let data={
+                faceId:6,
+                face:"♡✧˚ ༘ ⋆｡♡˚",
+                category:"love"
+            };
+            await setDoc(docEmoji,data)
+            .then(function(){
+                demo.innerHTML="新增文件OK<br>";
+            })
+         }
+
+         //新增文件
+         //手動產生文件id,setDoc()
+         async function setData2(){
+            await setDoc(doc(db,"EmojiText","05"),{
+                faceId:555,
+                face:"~_~",
+                category:"love"
+            }).then(function(){
+                demo.innerHTML="新增文件OK<br>";
+            });
+         }
+
+
+
+  
+        
+ 
+
+      </script>
+     
+
+    
+</body>
+</html>
