@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div style="float:left;padding: 1.25em;">
+        <input type="number" id="no" placeholder="Enter Product No"><br>
+        <input type="text" id="name" placeholder="Enter Product Name"><br>
+        <input type="number" id="price" placeholder="Enter Product Price"><br>
+        <select id="supplierid">
+            <option value="">Choose a Supplier</option>
+            <option value="1">大同</option>
+            <option value="2">桶一</option>
+            <option value="3">忠孝</option>
+            <option value="4">仁愛</option>
+        </select><br>
+        <button id="btnSet">SET DATA</button>
+        <button id="btnGet">GET DATA</button>
+        </div>
+  
+        
+    </div>
+    <div style="float:left;padding: 1.25em;">  
+        <input type="number" id="no2" placeholder="Enter Product No"><br>
+        <input type="text" id="name2" placeholder="Enter Product Name" disabled><br>
+        <input type="number" id="price2" placeholder="Enter Product Price" disabled><br>
+        <select id="supplierid2" disabled>
+            <option value="">Choose a Supplier</option>
+            <option value="1">大同</option>
+            <option value="2">桶一</option>
+            <option value="3">忠孝</option>
+            <option value="4">仁愛</option>
+        </select><br>
+        <button id="btnSearch">SEARCH DATA</button>
+        <button id="btnUpdate" disabled>UPDATE DATA</button>
+        <button id="btnDelete" disabled>DELETE DATA</button>
+    </div>
+        <div style="clear: both;">
+            <div style="float:left;padding: 1.25em;">  
+                <div id="demo"></div>
+                <div id="demo2"></div>
+            </div>
+            <div style="float:left;padding: 1.25em;"> 
+                <div id="demo3"></div>
+            </div>
+        </div>
+    
+
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore, doc, getDoc,collection, getDocs,addDoc, setDoc,query, onSnapshot,updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        const firebaseConfig = {
+        apiKey: "AIzaSyBfWX6HG8l4XwsQ9ogWZKYv6IIuys8GmT4",
+        authDomain: "jsdb20240529-96e78.firebaseapp.com",
+        projectId: "jsdb20240529-96e78",
+        storageBucket: "jsdb20240529-96e78.appspot.com",
+        messagingSenderId: "550760028858",
+        appId: "1:550760028858:web:1f5efb2dc0ece606868083"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db= getFirestore(app)
+;
+        const  no= document.getElementById("no");
+        const  name= document.getElementById("name");
+        const  price= document.getElementById("price");
+        const  supplierid= document.getElementById("supplierid");
+        const  btnSet= document.getElementById("btnSet");
+        const  btnGet= document.getElementById("btnGet");
+        const  demo= document.getElementById("demo");
+        const  demo2= document.getElementById("demo2");
+        
+        const  no2= document.getElementById("no2");
+        const  name2= document.getElementById("name2");
+        const  price2= document.getElementById("price2");
+        const  supplierid2= document.getElementById("supplierid2");
+        const  btnSearch= document.getElementById("btnSearch");
+        const  btnUpdate= document.getElementById("btnUpdate");
+        const  btnDelete= document.getElementById("btnDelete");
+
+        btnSet.onclick=function(){
+            // addData();
+            setData();
+        }
+
+        getDataListen()
+
+        btnGet.addEventListener('click',function(){
+            getData();
+        })
+        
+        btnSearch.onclick=function(){
+            searchData();
+        }
+        btnUpdate.onclick=function(){
+            updateData();
+        }
+        btnDelete.onclick=function(){
+            deleteData();
+        }
+
+        async function setData(){
+            await setDoc(doc(db, "Product", no.value), {
+                name:name.value,
+                price:price.value*1,
+                supplierid:supplierid.value*1
+            })            
+            .then(function(){
+                demo.innerHTML=no.value + "產品寫入OK<br>";
+                no.value="";
+                name.value="";
+                price.value="";
+                supplierid.value="";
+            });
+        }
+
+
+        function getDataListen(){
+            const q = query(collection(db, "Product"));
+            const dataAll = onSnapshot(q, (qs)=>{
+                demo2.innerHTML="";
+            qs.forEach((doc)=>{
+                demo2.innerHTML += "<hr>產品編號：" + doc.id + "<ul>"
+                                +"<li>產品名稱: " +doc.data().name + "</li>"
+                                +"<li>產品價格: " +doc.data().price + "</li>"
+                                +"<li>供應商編號: " +getSupplierName(doc.data().supplierid) + "</li></ul>";
+            });
+        });
+        }
+        async function getData(){
+            demo3.innerHTML="";
+            const qs = await getDocs(collection(db, "Product"));
+            qs.forEach((doc)=>{
+                demo3.innerHTML +="<hr>產品編號: " + doc.id + "<ul>"
+                                +"<li>產品名稱: " +doc.data()["name"] + "</li>"
+                                +"<li>產品價格: " +doc.data()["price"] + "</li>"
+                                +"<li>供應商編號: " +getSupplierName(doc.data()["supplierid"]) + "</li></ul>";
+            })
+        }
+
+        async function searchData(){
+            const docRef = doc(db, "Product", no2.value);
+            const docSnap = await getDoc(docRef);
+    
+            if(docSnap.exists()){
+                let data = docSnap.data()
+                name2.value = data["name"];
+                price2.value = data["price"] ;
+                supplierid2.value = data["supplierid"];
+                demo3.innerHTML =docSnap.id + ":<pre>" + JSON.stringify(data,null ,6 )+"</pre>";
+
+                formDisabled(false)
+            } else{
+                alert("無此產品!!")
+            }
+        }
+
+        async function updateData(){
+            const docRef = doc(db, "Product", no2.value);
+            await updateDoc(docRef,{
+                name:name2.value,
+                price:price2.value,
+                supplierid:supplierid2.value
+        
+            }).then(function(){
+                alert("update OK!!");
+                demo3.innerHTML +="<h3>已更新資料</h3><hr> " + no2.value + "<br>"
+                                +"產品名稱: " + name2.value + "<br>"
+                                +"產品價格: " + price2.value + "<br>"
+                                +"供應商編號: " +getSupplierName(supplierid2.value) + "<br>";
+
+                no2.value="";
+                name2.value="";
+                price2.value="";
+                supplierid2.value="";
+
+                formDisabled(true)
+            });
+
+        }
+        async function deleteData(){
+         await deleteDoc(doc(db, "Product", no2.value))
+            .then(()=>{
+                alert(no2.value + "Deleted!!");
+                demo3.innerHTML="";
+                
+                no2.value="";
+                name2.value="";
+                price2.value="";
+                supplierid2.value="";
+
+                formDisabled(true)
+            });
+        }
+        function getSupplierName(id){
+            let name = new Array( "大同","桶一", "忠孝", "仁愛");
+            return name[id -1]
+        }
+        function formDisabled(b){
+            name2.disabled = b;
+            price2.disabled = b;
+            supplierid2.disabled = b;
+            btnUpdate.disabled = b;
+            btnDelete.disabled = b;
+
+        }
+    </script>
+
+
+</body>
+</html>
