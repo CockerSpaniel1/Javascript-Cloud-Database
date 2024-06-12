@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firestore CRUD,create,read,update,delete</title>
+</head>
+<body>
+    <div>
+        <div style="float: left;padding: 1.25em;">
+            <!-- <input type="number" id="no" placeholder="Enter Product2 No"><br> -->
+            <input type="text" id="name" placeholder="Enter Product2 Name"><br>
+            <input type="number" id="price" placeholder="Enter Product2 Price"><br>
+            <select id="supplierid">
+                <option value="" selected disabled hidden> Choose a Supplier</option>
+                <option value="1">大同</option>
+                <option value="2">桶一</option>
+                <option value="3">忠孝</option>
+                <option value="4">仁愛</option>
+            </select><br>
+            <button id="btnSet">SET DATA</button>     
+            <button id="btnGet">GET DATA</button> 
+        </div>
+
+        <div style="float: left;padding: 1.25em;">
+            <input type="number" id="no2" placeholder="Enter Product2 No"><br>
+            <input type="text" id="name2" placeholder="Enter Product2 Name" disabled><br>
+            <input type="number" id="price2" placeholder="Enter Product2 Price" disabled><br>
+            <select id="supplierid2" disabled>
+                <option value="" selected disabled hidden> Choose a Supplier</option>
+                <option value="1">大同</option>
+                <option value="2">桶一</option>
+                <option value="3">忠孝</option>
+                <option value="4">仁愛</option>
+            </select><br>
+            <button id="btnSearch">SEARCH</button>     
+            <button id="btnUpdate" disabled>UPDATE</button> 
+            <button id="btnDelete" disabled>DELETE</button> 
+        </div>
+
+        <div style="float: left;padding: 1.25em;">
+            <button id="btnOrderBy">Order By Price ↑</button>
+            <button id="btnOrderBy2">Order By Price ↓</button><br>
+            <select id="selectOrder">  
+                <option value="" selected disabled hidden> 請選取要排序的欄位</option>              
+                <option value="name">產品名稱</option>
+                <option value="price">產品價格</option>
+                <option value="supplierid">供應商編號</option> 
+            </select>
+            <button id="btnAsc">↑</button>
+            <button id="btnDesc">↓</button><br>
+
+            <button id="btnOrderById">依產品編號 ↑</button>
+            <button id="btnOrderById2">依產品編號 ↓</button><br>
+            <button id="btnFilter">>=50</button>
+            <button id="btnFilter2">>=50 and <=70 </button>
+        </div>
+    </div>
+
+    <div style="clear: both;">
+        <div style="float: left;padding: 1.25em;">
+            <div id="demo"></div>
+            <div id="demo2"></div>
+        </div>
+        <div style="float: left;padding: 1.25em;">
+            <div id="demo3"></div>
+        </div>
+
+    </div>
+    
+    
+    <script type="module">       
+        //匯入所需要的函數
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        //新增其他的SDK
+        import { getFirestore,setDoc,doc,query,onSnapshot,collection,getDocs,getDoc,updateDoc,deleteDoc,runTransaction,orderBy,documentId,where} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyAQ3yatJFv0IiezkRVl47MPaIWyyOuj68Q",
+          authDomain: "jsdb202405.firebaseapp.com",
+          projectId: "jsdb202405",
+          storageBucket: "jsdb202405.appspot.com",
+          messagingSenderId: "608554569857",
+          appId: "1:608554569857:web:af20e8f497d4c67cd87d80"
+        };
+      
+        // Firebase 初始化
+        const app = initializeApp(firebaseConfig);       
+        const db=getFirestore(app); //建立資料庫物件常數
+
+        const no=document.getElementById('no');
+        const name=document.getElementById('name');
+        const price=document.getElementById('price');
+        const supplierid=document.getElementById('supplierid');
+        const btnSet=document.getElementById('btnSet');
+        const btnGet=document.getElementById('btnGet');
+
+        const no2=document.getElementById('no2');
+        const name2=document.getElementById('name2');
+        const price2=document.getElementById('price2');
+        const supplierid2=document.getElementById('supplierid2');
+        const btnSearch=document.getElementById('btnSearch');
+        const btnUpdate=document.getElementById('btnUpdate');
+        const btnDelete=document.getElementById('btnDelete');
+
+        const btnOrderBy=document.getElementById('btnOrderBy');
+        const btnOrderBy2=document.getElementById('btnOrderBy2');
+
+        const selectOrder=document.getElementById('selectOrder');
+        const btnAsc=document.getElementById('btnAsc');
+        const btnDesc=document.getElementById('btnDesc');
+
+        const btnOrderById=document.getElementById('btnOrderById');
+        const btnOrderById2=document.getElementById('btnOrderById2');
+
+        const btnFilter=document.getElementById('btnFilter');
+        const btnFilter2=document.getElementById('btnFilter2');
+
+
+        const demo=document.getElementById('demo');
+        const demo2=document.getElementById('demo2');
+        const demo3=document.getElementById('demo3');
+
+        btnSet.onclick=function(){
+           // setData();  //新增文件
+           addCustomId("Product2",{
+            name:name.value,
+            price:price.value*1,
+            supplierid:supplierid.value*1
+           })
+        };
+
+        getDataListen();    //呼叫讀取監聽函數
+
+        btnGet.addEventListener('click',function(){
+            getData();
+        })
+
+        btnSearch.onclick=function(){
+            searchData();  //讀取單一文件
+        };
+
+        btnUpdate.onclick=function(){
+            updateData();  //更新文件
+        };
+
+        btnDelete.onclick=function(){
+            deleteData();  //刪除文件
+        };
+
+
+        btnOrderBy.onclick=function(){
+            getDataOrderBy();  //查詢文件,依price 排序
+        };
+
+        btnOrderBy2.onclick=function(){
+            getDataOrderBy2();  //查詢文件,依price 排序遞減
+        };
+
+        btnAsc.onclick=function(){
+            getDataOrderBy3(selectOrder.value,"asc");
+        };
+
+        btnDesc.onclick=function(){
+            getDataOrderBy3(selectOrder.value,"desc");
+        };
+
+        btnOrderById.onclick=function(){
+            getDataOrderById();  //查詢文件,依price 排序
+        };
+
+        btnOrderById2.onclick=function(){
+            getDataOrderById2();  //查詢文件,依文件編號排序
+        };
+
+        btnFilter.onclick=function(){
+            filter();  //篩選
+        };
+
+        btnFilter2.onclick=function(){
+            filter2();  //篩選
+        };
+
+        //新增文件,自動產生特定的格式ID
+        async function addCustomId(myCollection,data){
+            const docRef=doc(db,"ProductCounter",myCollection); //建立文件,以Collection 為名的文件
+            try{
+                const docId=await runTransaction(db,async(t)=>{
+                const  myCounter=await t.get(docRef);   //取得ProductCounter 的文件,欄位的值 
+                    let id;
+                    if(!myCounter.exists()){    //若myCounter 不存在,表示第1次建立,
+                        id=1;   
+                        t.set(docRef,{count:id});   //將id 的值,記錄 count 欄位
+                    }else{
+                        id=myCounter.data().count+1;    //若不是第1次,則myCounter 之 count 的值+1
+                        t.update(docRef,{count:id});     //將id 的值,記錄 count 欄位
+                    }
+                    const newId=String(id).padStart(5,'0'); //填充編號前的重複0
+                    const docNew=doc(db,myCollection,newId);    //建立文件,以Collection 為名的文件,Product2
+                    t.set(docNew,data); //設定Product2 的欄位資料
+                    return newId;
+                });
+                console.log("新增的ID為" , docId);
+            }catch(e){
+                console.log("新增文件,錯誤訊息" ,e);
+            }
+        }
+
+        //新增文件
+       /*  async function setData(){
+            await setDoc(doc(db,"Product2",no.value),{
+                name:name.value,
+                price:price.value*1,
+                supplierid:supplierid.value*1
+            }).then(function(){
+                demo.innerHTML=no.value +"產品寫入OK<br>";
+                no.value='';
+                name.value='';
+                price.value='';
+                supplierid.value='';
+            });
+         }*/
+
+         //讀取文件(監聽)
+         /*
+         使用firestore 取得即時更新
+         透過onSnapshot()方法監聽文件
+         可立即使用文件的內容建立文件快照
+         再每次內容變更時，呼叫更新文件快照
+         */
+         function getDataListen(){
+            const q=query(collection(db,"Product2"));
+            const dataAll=onSnapshot(q,(qs)=>{
+                demo2.innerHTML='';
+                qs.forEach((doc)=>{
+                    demo2.innerHTML +="<hr>產品編號：" + doc.id + "<ul>"
+                                   +"<li>產品名稱：" + doc.data().name + "</li>"
+                                   +"<li>產品價格：" + doc.data().price + "</li>"
+                                   +"<li>供應商編號：" + doc.data().supplierid 
+                                         + "(" + getSupplierName(doc.data().supplierid) +  ")</li></ul>";
+                });
+            });
+         }
+
+
+         // //讀取文件
+         async function getData(){
+            demo3.innerHTML='';
+            const qs=await getDocs(collection(db,"Product2"));
+            qs.forEach((doc)=>{
+                demo3.innerHTML +="<hr>產品編號：" + doc.id + "<ul>"
+                                +"<li>產品名稱：" + doc.data()["name"] + "</li>"
+                                +"<li>產品價格：" + doc.data()["price"] + "</li>"
+                                +"<li>供應商編號：" + doc.data()["supplierid"] 
+                                    + "(" + getSupplierName(doc.data()["supplierid"]) +  ")</li></ul>";
+            });
+         }
+        
+         //搜尋文件
+         async function searchData(){
+            const docRef =doc(db,"Product2",no2.value);
+            const docSnap=await getDoc(docRef);
+            if(docSnap.exists()){
+                let data=docSnap.data();
+                name2.value=data["name"];
+                price2.value=data["price"];
+                supplierid2.value=data["supplierid"];
+                demo3.innerHTML=docSnap.id +":<pre>"+JSON.stringify(data,null,6)+ "</pre>";
+
+                formDisabled(false)              
+
+            }else{
+                alert('無此產品!!');
+            }
+         }
+
+         //更新文件
+         async function updateData(){
+            const docRef=doc(db,"Product2",no2.value);
+            await updateDoc(docRef,{
+                name:name2.value,
+                price:price2.value,
+                supplierid:supplierid2.value
+            }).then(function(){
+                alert('update OK!!');
+                demo3.innerHTML= "<h3>已更新資料</h3><hr>" + no2.value + "<br>"
+                                +"產品名稱：" + name2.value + "<br>"
+                                +"產品價格：" + price2.value + "<br>"
+                                +"供應商編號：" + supplierid2.value 
+                                                + "(" + getSupplierName(supplierid2.value) + ")<br>";
+
+                
+                //清空表單
+                no2.value='';
+                name2.value='';
+                price2.value='';
+                supplierid2.value='';
+
+                formDisabled(true);
+
+            });
+         }
+
+         //刪除文件
+         async function deleteData(){
+            await deleteDoc(doc(db,"Product2",no2.value))
+                .then(()=>{
+                    alert(no2.value + " Deleted!!");
+                    demo3.innerHTML='';
+
+                    //清空表單
+                    no2.value='';
+                    name2.value='';
+                    price2.value='';
+                    supplierid2.value='';
+
+                    formDisabled(true);
+                });
+         }
+
+         //查詢,依價格遞增排序
+         async function getDataOrderBy(){
+            //以price 欄位排序
+            const q=query(collection(db,"Product2"),orderBy("price"));
+            //執行排序
+            const qs=await getDocs(q);
+            //處理和顯示資料
+            demo3.innerHTML='';
+            qs.forEach((doc)=>{
+                const data=doc.data();
+                const p=document.createElement("p");
+               // p.textContent=` 產品名稱：${data.name} | 價格：${data.price} | 供應商編號：${data.supplierid}`;
+
+               p.innerHTML= `
+                        產品編號：${doc.id} <br>
+                        產品名稱：${data.name} <br>
+                        產品價格：<span style='color:red'>${data.price}</span> <br>
+                        供應商編號：${data.supplierid} <br>
+               `;
+                demo3.appendChild(p);
+            });            
+         }
+
+         //查詢,依價格遞減排序
+         async function getDataOrderBy2(){
+            //以price 欄位排序
+            const q=query(collection(db,"Product2"),orderBy("price","desc"));
+            //執行排序
+            const qs=await getDocs(q);
+            //處理和顯示資料
+            demo3.innerHTML='';
+            qs.forEach((doc)=>{
+                const data=doc.data();
+                const p=document.createElement("p");       
+               p.innerHTML= `
+                        產品編號：${doc.id} <br>
+                        產品名稱：${data.name} <br>
+                        產品價格：<span style='color:red'>${data.price}</span> <br>
+                        供應商編號：${data.supplierid} <br>
+               `;
+                demo3.appendChild(p);
+            });            
+         }
+
+          //查詢,依任意欄位,遞減排序
+          async function getDataOrderBy3(field,order){
+            //以price 欄位排序
+            const q=query(collection(db,"Product2"),orderBy(field,order));
+            //執行排序
+            const qs=await getDocs(q);
+            //處理和顯示資料
+            demo3.innerHTML='';
+            qs.forEach((doc)=>{
+                const data=doc.data();
+                const p=document.createElement("p");       
+               p.innerHTML= `
+                        產品編號：${doc.id} <br>
+                        產品名稱：${data.name} <br>
+                        產品價格：<span style='color:red'>${data.price}</span> <br>
+                        供應商編號：${data.supplierid} <br>
+               `;
+                demo3.appendChild(p);
+            });            
+         }
+
+         //查詢,依文件ID (產品的ID), 遞增
+          async function getDataOrderById(){
+            //以price 欄位排序
+            const q=query(collection(db,"Product2"),orderBy(documentId(),"asc"));
+            //執行排序
+            const qs=await getDocs(q);
+            //處理和顯示資料
+            demo3.innerHTML='';
+            qs.forEach((doc)=>{
+                const data=doc.data();
+                const p=document.createElement("p");       
+               p.innerHTML= `
+                        產品編號：${doc.id} <br>
+                        產品名稱：${data.name} <br>
+                        產品價格：<span style='color:red'>${data.price}</span> <br>
+                        供應商編號：${data.supplierid} <br>
+               `;
+                demo3.appendChild(p);
+            });            
+         }
+
+          //查詢,依文件ID (產品的ID), 遞減
+          async function getDataOrderById2(){          
+            const q=query(collection(db,"Product2"));
+            //執行查詢
+            const qs=await getDocs(q);
+            //存放至陣列
+            const documents=[]; //沒有任何元素
+            qs.forEach((doc)=>{
+                documents.push(doc);    //將文件置入陣列
+            })
+
+            //反轉陣列
+            const reverseDoc=documents.reverse();   
+
+            //處理和顯示資料
+            demo3.innerHTML='';
+            reverseDoc.forEach((doc)=>{
+                const data=doc.data();
+                const p=document.createElement("p");       
+               p.innerHTML= `
+                        產品編號：${doc.id} <br>
+                        產品名稱：${data.name} <br>
+                        產品價格：<span style='color:red'>${data.price}</span> <br>
+                        供應商編號：${data.supplierid} <br>
+               `;
+                demo3.appendChild(p);
+            });            
+         }
+
+
+         //篩選價格大於等於50
+         async function filter(){
+            const q=query(collection(db,"Product2"),where("price",">=",50));         
+            const qs=await getDocs(q);            
+            demo3.innerHTML='';
+            qs.forEach((doc)=>{
+                const data=doc.data();
+                const p=document.createElement("p");       
+               p.innerHTML= `
+                        產品編號：${doc.id} <br>
+                        產品名稱：${data.name} <br>
+                        產品價格：<span style='color:red'>${data.price}</span> <br>
+                        供應商編號：${data.supplierid} <br>
+               `;
+                demo3.appendChild(p);
+            });            
+         }
+
+          //篩選價格大於等於50,小於等於 70
+          async function filter2(){
+            const q=query(collection(db,"Product2"),where("price",">=",50),where("price","<=",70));         
+            const qs=await getDocs(q);            
+            demo3.innerHTML='';
+            qs.forEach((doc)=>{
+                const data=doc.data();
+                const p=document.createElement("p");       
+               p.innerHTML= `
+                        產品編號：${doc.id} <br>
+                        產品名稱：${data.name} <br>
+                        產品價格：<span style='color:red'>${data.price}</span> <br>
+                        供應商編號：${data.supplierid} <br>
+               `;
+                demo3.appendChild(p);
+            });            
+         }
+
+
+
+         //供應商編號與名稱對照
+         function getSupplierName(id){
+            let name=new Array("大同","桶一","忠孝","仁愛");
+            return name[id-1];
+         }
+
+
+         //處理表單有無效用
+         function formDisabled(b){
+            name2.disabled=b;
+            price2.disabled=b;
+            supplierid2.disabled=b;
+            btnUpdate.disabled=b;
+            btnDelete.disabled=b;  
+         }
+        </script>
+</body>
+</html>
