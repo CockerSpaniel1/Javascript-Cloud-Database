@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Storage , Upload File</title>
+   
+    <style>
+        progress{
+            width: 100%;
+            height: 10vh;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Upload File</h1>
+    <progress id="uploader" value="0" max="100" >0%</progress>
+    <input type="file" id="btnFile" accept="image/*">
+    <p id="result"></p>
+
+    <script type="module">       
+        //匯入所需要的函數
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        //新增其他的SDK
+        import {getStorage,ref,uploadBytesResumable,getDownloadURL} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+        
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyAQ3yatJFv0IiezkRVl47MPaIWyyOuj68Q",
+          authDomain: "jsdb202405.firebaseapp.com",
+          projectId: "jsdb202405",
+          storageBucket: "jsdb202405.appspot.com",
+          messagingSenderId: "608554569857",
+          appId: "1:608554569857:web:af20e8f497d4c67cd87d80"
+        };
+      
+        // Firebase 初始化
+        const app = initializeApp(firebaseConfig);       
+        const storage=getStorage(app); //建立storage物件常數
+        const uploader=document.getElementById('uploader');
+        const btnFile=document.getElementById('btnFile');
+        const result=document.getElementById('result');
+
+        btnFile.onchange=function(e){
+                var file=e.target.files[0];  //get upload file
+                console.log(file);
+                console.log("file name:" + file.name) ;
+                console.log("file size:" + file.size);
+                uploadFile(file);
+        };
+     
+       function uploadFile(file){
+            const storageRef=ref(storage,'product/' + file.name);
+            const metaData={
+                contentType:'image/jpeg'
+            };
+
+            //處理上傳監聴的物件
+            const uploadTask=uploadBytesResumable(storageRef,file,metaData);
+            
+            //監聽有關此任務的事件
+            uploadTask.on('state_changed',
+                (snapshot)=>{
+                    
+                    //實際已上傳/預計要上傳(檔案大小)*100
+                    const progress=(snapshot.bytesTransferred/snapshot.totalBytes)*100;
+                    console.log("上傳檔案已完成的進度：" + progress + "%");
+                    uploader.value=progress;
+                    result.innerHTML="已上傳：" + progress.toFixed(2) + "%<br>"
+                                    + "檔案名稱: " + snapshot.ref.name + "<br>"
+                                    + "完整路徑: " + snapshot.ref.fullPath + "<br>"
+                                    + "檔案大小: " + file.size + "Bytes<br>";                                      
+                    switch(snapshot.state){
+                        case "pause":
+                            console.log("上傳已暫停....");
+                            break;
+                        case "running":
+                            console.log("上傳正在執行中...");
+                            break;
+                    }
+                },
+            (error) => {
+            result.innerHTML="錯誤訊息" + error.message;
+          }, 
+          () => {
+             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+              console.log('File available at', downloadURL);
+              result.innerHTML += "<img src='" + downloadURL + "'>";
+            });
+          }
+       )
+     }
+        </script>
+</body>
+</html>

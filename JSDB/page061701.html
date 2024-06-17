@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Storage , Upload File</title>
+</head>
+<body>
+
+    <h1>Upload File</h1>
+    <input type="file" id="btnFile" accept="image/*">
+    <p id="result"></p>
+    
+
+
+    <script type="module">       
+        //匯入所需要的函數
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        //新增其他的SDK
+        import {getStorage, ref, uploadBytes} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+        
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+        apiKey: "AIzaSyBfWX6HG8l4XwsQ9ogWZKYv6IIuys8GmT4",
+        authDomain: "jsdb20240529-96e78.firebaseapp.com",
+        projectId: "jsdb20240529-96e78",
+        storageBucket: "jsdb20240529-96e78.appspot.com",
+        messagingSenderId: "550760028858",
+        appId: "1:550760028858:web:1f5efb2dc0ece606868083"
+        };
+      
+        // Firebase 初始化
+        const app = initializeApp(firebaseConfig);       
+        const storage =getStorage(app); //建立storage物件常數
+
+        const btnFile = document.getElementById("btnFile")
+        const result = document.getElementById("result")
+
+        btnFile.onchange =function(e){
+                var file=e.target.files[0];  
+                console.log(file);
+                console.log("file name:" + file.name) ;
+                console.log("file size:" + file.size);
+                uploadFile(file);
+        };
+
+        function uploadFile(file){
+          const storageRef = ref(storage, "product/" + file.name);
+          const metaData={
+            contentType:"image/jpeg"
+          };
+          uploadBytes(storageRef, file, metaData)
+              .then((snapshot)=>{
+                console.log("Uploaded a file!!");
+                console.log(snapshot);
+                result.innerHTML = "Upload file info:<br>"
+                                + "File Name" +snapshot.ref.name + "<br>"
+                                + "File Full Path" +snapshot.ref.fullPath + "<br>"
+                                + "File Size" + file.size + "Bytes<br>"
+              }).catch(function(e){
+                  result.innerHTML = `Error info:${e}`;
+              })
+
+        }
+        </script>
+</body>
+</html>
