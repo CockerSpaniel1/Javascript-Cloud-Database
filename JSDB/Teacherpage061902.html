@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Auth</title>
+   
+    
+</head>
+<body>
+
+    <h1> Login / Logout / Sign Up</h1>
+    <input type="email" id="email" placeholder="Email"><br>
+     <input type="password" id="pwd" placeholder="Password"><br>
+     <button id="btnLogin">登入</button>
+     <button id="btnSignup">註冊</button>
+     <button id="btnLogout" style="display: none;">登出</button>    
+     <div id="demo"></div>
+     <div id="info"></div>
+    
+
+
+    <script type="module">       
+        //匯入所需要的函數
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        //新增其他的SDK
+        import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDwCTOOnEeyA-34kdw56hT7mOJQGt1mq8E",
+            authDomain: "frontend0918.firebaseapp.com",
+            projectId: "frontend0918",
+            storageBucket: "frontend0918.appspot.com",
+            messagingSenderId: "87714293097",
+            appId: "1:87714293097:web:ffe03d08137b36cbde09f8"
+        };
+      
+        // Firebase 初始化
+        const app = initializeApp(firebaseConfig);
+        const auth=getAuth(app); 
+
+        const email=document.getElementById('email');
+        const pwd=document.getElementById('pwd');
+        const btnLogin=document.getElementById('btnLogin');
+        const btnSignup=document.getElementById('btnSignup');
+        const btnLogout=document.getElementById('btnLogout');   
+        const demo=document.getElementById('demo');
+        const info=document.getElementById('info');
+
+        //登入
+        btnLogin.addEventListener('click',function(){
+            signInWithEmailAndPassword(auth,email.value,pwd.value)
+                .then((userCredential)=>{
+                    const user=userCredential.user;
+                    //window.location.href="page061903.html";//若登入成功,直接導向至該網頁
+                    console.log(user);
+                    if(user!==null){
+                     demo.innerHTML= user.email + "登入OK!!<br>";
+                     info.innerHTML= "displayName: " + user.displayName + "<br>"
+                                    +"uid:" + user.uid + "<br>"
+                                    +"<a href='page061903.html'>Shopping</a>";
+
+                     btnLogout.style.display='inline';
+                     email.value='';
+                     pwd.value='';                                         
+                    }
+                })
+                .catch((error)=>{
+                    const errorCode=error.code;
+                    const errorMsg=error.message;
+                    console.log(errorCode,errorMsg);
+                    demo.innerHTML= "錯誤訊息: 帳密錯誤!!<br>";  
+                });
+        });
+     
+        //登出
+        btnLogout.addEventListener('click',function(){
+            signOut(auth)
+                .then(()=>{
+                    demo.innerHTML='881!!';
+                    info.innerHTML='';
+                    btnLogout.style.display='none';
+                })
+                .catch((error)=>{
+                    demo.innerHTML="錯誤訊息：" + error.message +"<br>";
+                });
+        });
+
+        //註冊
+        btnSignup.addEventListener('click',e=>{
+            createUserWithEmailAndPassword(auth,email.value,pwd.value)
+                .then((userCredential)=>{
+                    const user=userCredential.user;
+                    //window.location.href="page061903.html"; //若註冊成功,直接導向至該網頁
+                    demo.innerHTML=user.email + "恭喜您,註冊成功!<br>";
+                    if(user !==null){
+                        info.innerHTML="您的名稱："+ user.displayName + "<br>"
+                                       +"使用者ID：" + user.uid + "<br>"
+                                       +"<a href='page061903.html'>Shopping</a>";  
+                    }
+                    btnLogout.style.display='inline';
+                    email.value='';
+                    pwd.value='';                    
+                })
+                .catch((error)=>{
+                    const errorCode=error.code;
+                    const errorMsg=error.message;
+                    console.log(errorCode,errorMsg);
+                    demo.innerHTML= "錯誤訊息: 註冊失敗,請重新輸入帳密!!<br>";  
+                })
+        });
+     
+            
+        </script>
+</body>
+</html>

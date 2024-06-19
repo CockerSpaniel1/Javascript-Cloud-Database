@@ -1,0 +1,31 @@
+ // 使用 OR 篩選
+        async function filter3() {  
+            const q=query(collection(db,"Product2"),where("price",">=",70));  
+            const q2=query(collection(db,"Product2"),where("price","<=",20));
+            const qs=await getDocs(q); 
+            const qs2=await getDocs(q2); 
+
+            // 合併結果並刪除重複項目
+            const products = new Map();
+
+            qs.forEach((doc) => {
+                products.set(doc.id, doc.data());
+            });
+
+            qs2.forEach((doc) => {
+                products.set(doc.id, doc.data());
+            });
+            
+            demo3.innerHTML='';
+            products.forEach((product, id) => {                
+               //console.log(id, product.name, product.price,product.supplierid);
+               const p=document.createElement("p");       
+               p.innerHTML= `
+                        產品編號：${id} <br>
+                        產品名稱：${product.name} <br>
+                        產品價格：<span style='color:red'>${product.price}</span> <br>
+                        供應商編號：${product.supplierid} <br>
+               `;
+                demo3.appendChild(p);
+            });
+        }

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Authentication, 使用者驗證的狀態</title>
+    <script type="module">       
+        //匯入所需要的函數
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        //新增其他的SDK
+        import {getAuth,onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDwCTOOnEeyA-34kdw56hT7mOJQGt1mq8E",
+            authDomain: "frontend0918.firebaseapp.com",
+            projectId: "frontend0918",
+            storageBucket: "frontend0918.appspot.com",
+            messagingSenderId: "87714293097",
+            appId: "1:87714293097:web:ffe03d08137b36cbde09f8"
+        };
+      
+        // Firebase 初始化
+        const app = initializeApp(firebaseConfig);
+        const auth=getAuth(app); 
+
+        //檢查使用者是否已通過驗證
+        onAuthStateChanged(auth,(user)=>{
+            if(!user){
+                window.location.href="page061902.html"; //若使用者未驗證成功,則導向登入頁面
+            }else{
+                document.getElementById('demo').textContent=user.email;
+            }
+        })
+
+        //登出
+        async function logout(){
+            try{
+                await signOut(auth);
+                alert('881!!');
+                window.location.href='page061902.html';
+            }catch(error){
+                console.log("Error:" + error.message);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded",()=>{
+            document.getElementById('btnLogout').addEventListener('click',logout);
+        });
+        
+        </script>
+</head>
+<body>
+
+    <h1>Welcome to My Web Site</h1>
+    <div id="demo"></div>
+    <button id="btnLogout">登出</button>
+    
+</body>
+</html>

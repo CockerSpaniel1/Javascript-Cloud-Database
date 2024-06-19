@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module">       
+        //匯入所需要的函數
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        //新增其他的SDK
+        import {getAuth,onAuthStateChanged,signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import {getStorage, ref, uploadBytesResumable,getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+        apiKey: "AIzaSyBfWX6HG8l4XwsQ9ogWZKYv6IIuys8GmT4",
+        authDomain: "jsdb20240529-96e78.firebaseapp.com",
+        projectId: "jsdb20240529-96e78",
+        storageBucket: "jsdb20240529-96e78.appspot.com",
+        messagingSenderId: "550760028858",
+        appId: "1:550760028858:web:1f5efb2dc0ece606868083"
+        };
+      
+        // Firebase 初始化
+        const app = initializeApp(firebaseConfig);       
+        const auth =getAuth(app); 
+        const storage =getStorage(app);
+
+        onAuthStateChanged(auth, (user)=>{
+            if(!user){
+                window.location.href="page061902.html";
+            }else{
+                document.getElementById('demo').textContent = user.email;
+            }
+        })
+        async function logout(){
+            try{
+                await signOut(auth)
+                alert('881!!')
+                window.location.href= 'page061902.html'
+            }catch(error){
+                console.log("Error: "+ error.message)
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", ()=>{
+            document.getElementById('btnLogout').addEventListener('click', logout);
+        })
+    </script>
+</head>
+<body>
+    <h1>Welcome to My Web Site</h1>
+    <div id="demo"></div>
+    <button id="btnLogout">登出</button>
+
+
+    <progress id="uploader" value="0" max="100">0% </progress>
+    <input type="file" id="btnFile" accept="image/*">
+    <p id="result"></p>
+  
+</body>
+</html>
