@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Authentication, 使用者驗證的狀態</title>
+    <style>
+        progress{
+            width: 100%;
+            height: 10vh;
+        }
+    </style>
+    <script type="module">       
+        //匯入所需要的函數
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        //新增其他的SDK
+        import {getAuth,onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        //import {getStorage,ref,uploadBytesResumable,getDownloadURL} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+      
+        import {getStorage,ref,uploadBytesResumable,getDownloadURL} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDwCTOOnEeyA-34kdw56hT7mOJQGt1mq8E",
+            authDomain: "frontend0918.firebaseapp.com",
+            projectId: "frontend0918",
+            storageBucket: "frontend0918.appspot.com",
+            messagingSenderId: "87714293097",
+            appId: "1:87714293097:web:ffe03d08137b36cbde09f8"
+        };
+      
+        // Firebase 初始化
+        const app = initializeApp(firebaseConfig);
+        const auth=getAuth(app); 
+        const storage=getStorage(app); 
+
+        //檢查使用者是否已通過驗證
+        onAuthStateChanged(auth,(user)=>{
+            if(!user){
+                window.location.href="page061902.html"; //若使用者未驗證成功,則導向登入頁面
+            }else{
+                document.getElementById('demo').textContent=user.email;
+            }
+        })
+
+        //登出
+        async function logout(){
+            try{
+                await signOut(auth);
+                alert('881!!');
+                window.location.href='page061902.html';
+            }catch(error){
+                console.log("Error:" + error.message);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded",()=>{
+            document.getElementById('btnLogout').addEventListener('click',logout);
+        });
+
+        //------Storage-------------------------------------------------------------------------
+
+        const uploader=document.getElementById('uploader');
+        const btnFile=document.getElementById('btnFile');
+        const result=document.getElementById('result');
+
+        btnFile.onchange=function(e){
+                var file=e.target.files[0];  //get upload file
+                console.log(file);
+                console.log("file name:" + file.name) ;
+                console.log("file size:" + file.size);
+                uploadFile(file);
+        };
+     
+       function uploadFile(file){
+            const storageRef=ref(storage,'product/' + file.name);
+            const metaData={
+                contentType:'image/jpeg'
+            };
+
+            //處理上傳監聴的物件
+            const uploadTask=uploadBytesResumable(storageRef,file,metaData);
+            
+            //監聽有關此任務的事件
+            uploadTask.on('state_changed',
+                (snapshot)=>{
+                    
+                    //實際已上傳/預計要上傳(檔案大小)*100
+                    const progress=(snapshot.bytesTransferred/snapshot.totalBytes)*100;
+                    console.log("上傳檔案已完成的進度：" + progress + "%");
+                    uploader.value=progress;
+                    result.innerHTML="已上傳：" + progress.toFixed(2) + "%<br>"
+                                    + "檔案名稱: " + snapshot.ref.name + "<br>"
+                                    + "完整路徑: " + snapshot.ref.fullPath + "<br>"
+                                    + "檔案大小: " + file.size + "Bytes<br>";                                      
+                    switch(snapshot.state){
+                        case "pause":
+                            console.log("上傳已暫停....");
+                            break;
+                        case "running":
+                            console.log("上傳正在執行中...");
+                            break;
+                    }
+                },
+            (error) => {
+            result.innerHTML="錯誤訊息" + error.message;
+          }, 
+          () => {
+             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+              console.log('File available at', downloadURL);
+              result.innerHTML += "<img src='" + downloadURL + "'>";
+            });
+          }
+       )
+     }
+        </script>
+</head>
+<body>
+    <h1>Welcome to My Web Site</h1>
+    <div id="demo"></div>
+    <button id="btnLogout">登出</button>
+    <hr>
+    <progress id="uploader" value="0" max="100" >0%</progress>
+    <input type="file" id="btnFile" accept="image/*">
+    <p id="result"></p>
+</body>
+</html>
